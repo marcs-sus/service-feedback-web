@@ -5,6 +5,9 @@ require_once __DIR__ . '/../src/functions/questions.php';
 
 // Query all questions from the database
 $questions = get_all_questions();
+
+// Convert questions to JSON for JavaScript
+$questions_json = json_encode($questions);
 ?>
 
 <!DOCTYPE html>
@@ -14,21 +17,48 @@ $questions = get_all_questions();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback Questions</title>
+    <link rel="stylesheet" href="css/form.css">
 </head>
 
 <body>
-    <h1>Questions</h1>
+    <div id="form-container">
+        <!-- Display form progress indicator -->
+        <div id="progress-bar">
+            <span id="progress-text">Question <span id="current-step">1</span> of <span id="total-steps">0</span></span>
+        </div>
 
-    <?php if (!empty($questions)) : ?>
-        <ul>
-            <?php foreach ($questions as $question) : ?>
-                <li><?= htmlspecialchars($question[COLUMNS_QUESTIONS['text']]); ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p>No questions found in the database.</p>
-    <?php endif;
-    ?>
+        <!-- Question container -->
+        <div id="question-container">
+            <h2 id="question-text"></h2>
+            <div id="scale-container"></div>
+        </div>
+
+        <!-- Feedback container -->
+        <div id="feedback-container" style="display: none;">
+            <h2>Additional Feedback (Optional)</h2>
+            <textarea id="feedback-text" rows="6" placeholder="Leave your feedback here..."></textarea>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div id="navigation">
+            <button id="btn-prev" style="display: none;">Previous</button>
+            <button id="btn-next" disabled>Next</button>
+            <button id="btn-submit" style="display: none;">Submit</button>
+        </div>
+
+        <!-- Message container -->
+        <div id="message-container" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Pass PHP data to JavaScript
+        const questions = <?= $questions_json ?>;
+        const COLUMNS = {
+            id: '<?= COLUMNS_QUESTIONS['id'] ?>',
+            text: '<?= COLUMNS_QUESTIONS['text'] ?>',
+        };
+    </script>
+    <script src="js/form.js"></script>
 </body>
 
 </html>
