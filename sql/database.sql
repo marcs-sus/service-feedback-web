@@ -23,6 +23,7 @@ CREATE TABLE
     questions (
         question_id SERIAL PRIMARY KEY,
         question_text TEXT NOT NULL,
+        scale_type INT DEFAULT 10,
         status BOOLEAN DEFAULT TRUE
     );
 
@@ -34,7 +35,14 @@ CREATE TABLE
         question_id INT REFERENCES questions (question_id),
         device_id INT REFERENCES devices (device_id),
         response_score INT NOT NULL CHECK (response_score BETWEEN 0 AND 10),
-        feedback TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+-- Table for Feedback from open-ended feedback field
+CREATE TABLE
+    feedback (
+        feedback_id SERIAL PRIMARY KEY,
+        feedback_text TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 

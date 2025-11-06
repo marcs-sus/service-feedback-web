@@ -39,6 +39,7 @@ define(
     [
         'id' => 'question_id',
         'text' => 'question_text',
+        'type' => 'scale_type',
         'status' => 'status'
     ]
 );
@@ -50,7 +51,14 @@ define(
         'question_id' => 'question_id',
         'device_id' => 'device_id',
         'score' => 'response_score',
-        'feedback' => 'feedback',
+        'created_at' => 'created_at'
+    ]
+);
+define(
+    'COLUMNS_FEEDBACK',
+    [
+        'id' => 'feedback_id',
+        'text' => 'feedback_text',
         'created_at' => 'created_at'
     ]
 );
