@@ -42,6 +42,8 @@ CREATE TABLE
 CREATE TABLE
     feedback (
         feedback_id SERIAL PRIMARY KEY,
+        sector_id INT REFERENCES sectors (sector_id),
+        device_id INT REFERENCES devices (device_id),
         feedback_text TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

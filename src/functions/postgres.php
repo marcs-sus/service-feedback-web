@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../config.php';
 
 // Execute a query and return all results
-function pgsql_query_all($pdo, $sql, $params = [])
+function pgsql_query_all(PDO $pdo, $sql, $params = [])
 {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
@@ -11,7 +11,7 @@ function pgsql_query_all($pdo, $sql, $params = [])
 }
 
 // Execute a query
-function pgsql_execute($pdo, $sql, $params = [])
+function pgsql_execute(PDO $pdo, $sql, $params = [])
 {
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($params);

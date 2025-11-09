@@ -14,6 +14,7 @@ define('TABLE_SECTORS', 'sectors');
 define('TABLE_DEVICES', 'devices');
 define('TABLE_QUESTIONS', 'questions');
 define('TABLE_EVALUATIONS', 'evaluations');
+define('TABLE_FEEDBACK', 'feedback');
 define('TABLE_ADMIN_USERS', 'admin_users');
 
 // Table column names
@@ -58,6 +59,8 @@ define(
     'COLUMNS_FEEDBACK',
     [
         'id' => 'feedback_id',
+        'sector_id' => 'sector_id',
+        'device_id' => 'device_id',
         'text' => 'feedback_text',
         'created_at' => 'created_at'
     ]
