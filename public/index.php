@@ -60,5 +60,8 @@ $questions_json = json_encode($questions);
     </script>
     <script src="js/form.js"></script>
 </body>
+<footer>
+    <h1>Your spontaneous review is anonymous, no personal information is requested or stored.</h1>
+</footer>
 
 </html>

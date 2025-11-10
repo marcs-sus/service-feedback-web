@@ -160,9 +160,7 @@ async function submitEvaluation() {
 
     if (result.success) {
       showMessage("Evaluation submitted successfully!", "success");
-      setTimeout(() => {
-        resetForm();
-      }, 3000);
+      window.location.href = "thank.php";
     } else {
       showMessage(
         "An error occurred while submitting the evaluation " +
