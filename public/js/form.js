@@ -11,6 +11,7 @@ const formStates = {
 
 // DOM elements
 const progressBar = document.getElementById("progress-bar");
+const progressBarFill = document.getElementById("progress-bar-fill");
 const questionText = document.getElementById("question-text");
 const scaleContainer = document.getElementById("scale-container");
 const questionContainer = document.getElementById("question-container");
@@ -32,6 +33,13 @@ function initForm() {
 
   totalStepsSpan.textContent = formStates.totalSteps;
   renderQuestion(formStates.currentStep);
+  updateProgressBar();
+}
+
+// Update progress bar
+function updateProgressBar() {
+  const progress = (formStates.currentStep + 1) / formStates.totalSteps;
+  progressBarFill.style.width = `${progress * 100}%`;
 }
 
 // Show question on form
@@ -46,6 +54,7 @@ function renderQuestion(index) {
 
   // Update progress
   currentStepSpan.textContent = index + 1;
+  updateProgressBar();
 
   // Update question text
   questionText.textContent = question[COLUMNS.text];
@@ -133,6 +142,7 @@ function showFeedbackScreen() {
 
   currentStepSpan.textContent = formStates.totalSteps;
   totalStepsSpan.textContent = formStates.totalSteps;
+  updateProgressBar();
 }
 
 // Submit service evaluation

@@ -25,6 +25,9 @@ $questions_json = json_encode($questions);
         <!-- Display form progress indicator -->
         <div id="progress-bar">
             <span id="progress-text">Question <span id="current-step">1</span> of <span id="total-steps">0</span></span>
+            <div id="progress-bar-container">
+                <div id="progress-bar-fill"></div>
+            </div>
         </div>
 
         <!-- Question container -->
