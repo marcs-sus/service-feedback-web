@@ -24,6 +24,11 @@ const btnNext = document.getElementById("btn-next");
 const btnSubmit = document.getElementById("btn-submit");
 const messageContainer = document.getElementById("message-container");
 
+// Extract device and sector from URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+formStates.deviceId = urlParams.get("device_id") || null;
+formStates.sectorId = urlParams.get("sector_id") || null;
+
 // Initialize form
 function initForm() {
   if (questions.length === 0) {

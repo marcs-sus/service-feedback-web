@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../db.php';
 
-function save_evaluation(PDO $pdo, $responses, $feedback = null, $device_id, $sector_id)
+function save_evaluation(PDO $pdo, $responses, $feedback = null, $device_id, $sector_id): bool
 {
     try {
         // Begin transaction to ensure all responses are saved

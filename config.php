@@ -31,7 +31,6 @@ define(
     [
         'id' => 'device_id',
         'name' => 'device_name',
-        'sector_id' => 'sector_id',
         'status' => 'status'
     ]
 );
@@ -39,6 +38,7 @@ define(
     'COLUMNS_QUESTIONS',
     [
         'id' => 'question_id',
+        'sector_id' => 'sector_id',
         'text' => 'question_text',
         'type' => 'scale_type',
         'status' => 'status'

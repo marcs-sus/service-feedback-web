@@ -14,7 +14,6 @@ CREATE TABLE
     devices (
         device_id SERIAL PRIMARY KEY,
         device_name VARCHAR(100) NOT NULL,
-        sector_id INT REFERENCES sectors (sector_id),
         status BOOLEAN DEFAULT TRUE
     );
 
@@ -22,6 +21,7 @@ CREATE TABLE
 CREATE TABLE
     questions (
         question_id SERIAL PRIMARY KEY,
+        sector_id INT REFERENCES sectors (sector_id),
         question_text TEXT NOT NULL,
         scale_type INT DEFAULT 10,
         status BOOLEAN DEFAULT TRUE

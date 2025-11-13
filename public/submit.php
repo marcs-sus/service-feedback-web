@@ -30,8 +30,8 @@ try {
     // Extract data
     $responses = $data['responses'];
     $feedback = $data['feedback'] ?? null;
-    $device_id = 6; // TODO: Get device_id from request (hard-coded for testing)
-    $sector_id = 6; // TODO: Get sector_id from request (hard-coded for testing)
+    $device_id = $data['device_id'];
+    $sector_id = $data['sector_id'];
 
     // Validade scores
     foreach ($responses as $question_id => $score) {
