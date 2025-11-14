@@ -3,6 +3,10 @@ require_once __DIR__ . '/../src/db.php';
 require_once __DIR__ . '/../src/functions/postgres.php';
 require_once __DIR__ . '/../src/functions/questions.php';
 
+// Get device and sector from URL parameters, default to 1
+$device_id = $_GET['device'] ?? 1 && $_GET['device'] = 1;
+$sector_id = $_GET['sector'] ?? 1 && $_GET['sector'] = 1;
+
 // Query all questions from the database
 $questions = get_all_questions();
 
@@ -56,8 +60,11 @@ $questions_json = json_encode($questions);
     <script>
         // Pass PHP data to JavaScript
         const questions = <?= $questions_json ?>;
+        const device_id = <?= $device_id ?>;
+        const sector_id = <?= $sector_id ?>;
         const COLUMNS = {
             id: '<?= COLUMNS_QUESTIONS['id'] ?>',
+            sector: '<?= COLUMNS_QUESTIONS['sector_id'] ?>',
             text: '<?= COLUMNS_QUESTIONS['text'] ?>',
         };
     </script>

@@ -41,7 +41,7 @@ try {
     }
 
     // Save evaluation
-    $result = save_evaluation($pdo, $responses, $feedback, $device_id, $sector_id);
+    $result = save_evaluation($responses, $feedback, $device_id, $sector_id);
 
     if ($result) {
         echo json_encode([

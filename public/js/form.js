@@ -5,8 +5,8 @@ const formStates = {
   currentStep: 0,
   totalSteps: questions.length + 1,
   responses: {},
-  deviceId: null,
-  sectorId: null,
+  device_id: device_id,
+  sector_id: sector_id,
 };
 
 // DOM elements
@@ -23,11 +23,6 @@ const btnPrev = document.getElementById("btn-prev");
 const btnNext = document.getElementById("btn-next");
 const btnSubmit = document.getElementById("btn-submit");
 const messageContainer = document.getElementById("message-container");
-
-// Extract device and sector from URL parameters
-const urlParams = new URLSearchParams(window.location.search);
-formStates.deviceId = urlParams.get("device_id") || null;
-formStates.sectorId = urlParams.get("sector_id") || null;
 
 // Initialize form
 function initForm() {
@@ -103,12 +98,17 @@ function selectScore(questionId, score) {
 
 // Update navigation button states
 function updateNavigation() {
+  // Previous button, hide on first question
+  btnPrev.style.display = formStates.currentStep > 0 ? "inline-block" : "none";
+
+  if (formStates.currentStep >= questions.length) {
+    return;
+  }
+
+  // Check if current question has an answer
   const currentQuestion = questions[formStates.currentStep];
   const currentQuestionId = currentQuestion[COLUMNS.id];
   const hasAnswer = formStates.responses[currentQuestionId] !== undefined;
-
-  // Previous button
-  btnPrev.style.display = formStates.currentStep > 0 ? "inline-block" : "none";
 
   // Next button
   btnNext.disabled = !hasAnswer;
@@ -148,6 +148,7 @@ function showFeedbackScreen() {
   currentStepSpan.textContent = formStates.totalSteps;
   totalStepsSpan.textContent = formStates.totalSteps;
   updateProgressBar();
+  updateNavigation();
 }
 
 // Submit service evaluation
@@ -158,8 +159,8 @@ async function submitEvaluation() {
   const evaluationData = {
     responses: formStates.responses,
     feedback: feedbackText.value.trim() || null,
-    deviceId: formStates.deviceId,
-    sectorId: formStates.sectorId,
+    device_id: formStates.device_id,
+    sector_id: formStates.sector_id,
   };
 
   try {

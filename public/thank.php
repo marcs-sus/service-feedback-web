@@ -1,3 +1,12 @@
+<?php
+// Get device and sector from URL parameters, with defaults
+$device_id = $_GET['device'] ?? 1;
+$sector_id = $_GET['sector'] ?? 1;
+
+// Build the redirect URL with the parameters
+$redirect_url = "index.php?device=$device_id&sector=$sector_id";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +25,7 @@
 
     <script>
         setTimeout(function() {
-            window.location.href = 'index.php';
+            window.location.href = '<?= $redirect_url ?>';
         }, 5000);
     </script>
 </body>
