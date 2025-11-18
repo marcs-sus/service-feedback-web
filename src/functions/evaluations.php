@@ -5,7 +5,7 @@ require_once __DIR__ . '/../db.php';
 
 function save_evaluation($responses, $feedback = null, $device_id, $sector_id): bool
 {
-    global $pdo;
+    $pdo = Database::getInstance();
     try {
         // Begin transaction to ensure all responses are saved
         $pdo->beginTransaction();

@@ -5,9 +5,8 @@ require_once __DIR__ . '/../db.php';
 
 function get_all_questions()
 {
-    global $pdo;
     try {
-
+        $pdo = Database::getInstance();
 
         $sql = "SELECT * FROM " . TABLE_QUESTIONS .
             " WHERE " . COLUMNS_QUESTIONS['status'] . " = TRUE" .
