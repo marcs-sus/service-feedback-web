@@ -1,11 +1,11 @@
 <?php
 // Functions for managing evaluations
 require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../db_conn.php';
 
 function save_evaluation($responses, $feedback = null, $device_id, $sector_id): bool
 {
-    $pdo = Database::getInstance();
+    $pdo = Database::get_instance();
     try {
         // Begin transaction to ensure all responses are saved
         $pdo->beginTransaction();

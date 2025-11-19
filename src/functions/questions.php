@@ -1,12 +1,12 @@
 <?php
 // Functions for managing questions
 require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../db_conn.php';
 
 function get_all_questions()
 {
     try {
-        $pdo = Database::getInstance();
+        $pdo = Database::get_instance();
 
         $sql = "SELECT * FROM " . TABLE_QUESTIONS .
             " WHERE " . COLUMNS_QUESTIONS['status'] . " = TRUE" .

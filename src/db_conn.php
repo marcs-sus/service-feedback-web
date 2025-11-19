@@ -5,7 +5,7 @@ class Database
 {
     private static ?PDO $instance = null;
 
-    public static function getInstance(): PDO
+    public static function get_instance(): PDO
     {
         if (self::$instance === null) {
             try {
@@ -26,4 +26,13 @@ class Database
 
         return self::$instance;
     }
+
+    // Prevent direct instantiation
+    private function __construct() {}
+
+    // Prevent cloning
+    private function __clone() {}
+
+    // Prevent unserializing
+    public function __wakeup() {}
 }
