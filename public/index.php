@@ -20,7 +20,7 @@ $questions_json = json_encode($questions);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback Questions</title>
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -72,5 +72,9 @@ $questions_json = json_encode($questions);
 <footer>
     <h1>Your spontaneous review is anonymous, no personal information is requested or stored.</h1>
 </footer>
+
+<a href="admin/login.php" id="admin-login-link">
+    <img src="assets/adm.svg" alt="Admin Login" class="admin-login-icon" />
+</a>
 
 </html>

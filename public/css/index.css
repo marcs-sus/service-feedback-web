@@ -195,3 +195,22 @@ footer h1 {
   font-size: 0.9rem;
   font-weight: normal;
 }
+
+/* Admin Login Link */
+#admin-login-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#admin-login-link img {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#admin-login-link img:hover {
+  opacity: 1;
+}
