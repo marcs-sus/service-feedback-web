@@ -67,7 +67,7 @@ $questions_json = json_encode($questions);
             text: '<?= COLUMNS_QUESTIONS['text'] ?>',
         };
     </script>
-    <script src="js/form.js"></script>
+    <script src="js/index.js"></script>
 </body>
 <footer>
     <h1>Your spontaneous review is anonymous, no personal information is requested or stored.</h1>

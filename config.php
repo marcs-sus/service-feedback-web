@@ -70,6 +70,6 @@ define(
     [
         'id' => 'admin_id',
         'username' => 'username',
-        'password' => 'password_hash'
+        'password_hash' => 'password_hash'
     ]
 );

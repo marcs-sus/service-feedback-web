@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '../../config.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../query.php';
 
 class User
 {
@@ -7,8 +8,9 @@ class User
     private string $username;
     private string $password_hash;
 
-    public function __construct(string $username, string $password_hash)
+    public function __construct(int $id, string $username, string $password_hash)
     {
+        $this->id = $id;
         $this->username = $username;
         $this->password_hash = $password_hash;
     }
@@ -20,7 +22,28 @@ class User
 
         $user = $users[0] ?? null;
         if ($user) {
-            return new User($user[COLUMNS_ADMIN_USERS['username']], $user[COLUMNS_ADMIN_USERS['password_hash']]);
+            return new User(
+                $user[COLUMNS_ADMIN_USERS['id']],
+                $user[COLUMNS_ADMIN_USERS['username']],
+                $user[COLUMNS_ADMIN_USERS['password_hash']]
+            );
+        }
+
+        return null;
+    }
+
+    public static function find_by_id(int $id): ?User
+    {
+        $user_query = new Query();
+        $users = $user_query->select(TABLE_ADMIN_USERS, ['*'], [COLUMNS_ADMIN_USERS['id'] => $id]);
+
+        $user = $users[0] ?? null;
+        if ($user) {
+            return new User(
+                $user[COLUMNS_ADMIN_USERS['id']],
+                $user[COLUMNS_ADMIN_USERS['username']],
+                $user[COLUMNS_ADMIN_USERS['password_hash']]
+            );
         }
 
         return null;
