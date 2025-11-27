@@ -1,15 +1,12 @@
 <?php
 require_once __DIR__ . '/../../../../src/functions/auth_required.php';
-require_once __DIR__ . '/../../../../config.php';
-require_once __DIR__ . '/../../../../src/query.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
 // Enforce authentication
 auth_required('../../login.php');
 
 // Fetch all sectors from the database
-$query = new Query();
-$sectors = $query->select(TABLE_SECTORS, ['*'], [], '1');
+$sectors = Sector::find_all();
 ?>
 
 <!DOCTYPE html>
@@ -35,13 +32,7 @@ $sectors = $query->select(TABLE_SECTORS, ['*'], [], '1');
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($sectors as $key => $value) :
-                $sector = new Sector(
-                    $value[COLUMNS_SECTORS['id']],
-                    $value[COLUMNS_SECTORS['name']],
-                    $value[COLUMNS_SECTORS['status']]
-                );
-            ?>
+            <?php foreach ($sectors as $sector) : ?>
                 <tr>
                     <td><?= htmlspecialchars($sector->get_id()) ?></td>
                     <td><?= htmlspecialchars($sector->get_name()) ?></td>

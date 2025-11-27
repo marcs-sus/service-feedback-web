@@ -1,7 +1,5 @@
 <?php
 require_once __DIR__ . '/../../../../src/functions/auth_required.php';
-require_once __DIR__ . '/../../../../config.php';
-require_once __DIR__ . '/../../../../src/query.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
 // Enforce authentication
