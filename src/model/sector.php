@@ -31,6 +31,22 @@ class Sector
         return null;
     }
 
+    public static function find_all(): array
+    {
+        $sector_query = new Query();
+        $sectors = $sector_query->select(TABLE_SECTORS);
+
+        foreach ($sectors as $key => $value) {
+            $sectors[$key] = new Sector(
+                $value[COLUMNS_SECTORS['id']],
+                $value[COLUMNS_SECTORS['name']],
+                $value[COLUMNS_SECTORS['status']]
+            );
+        }
+
+        return $sectors;
+    }
+
     public function get_id(): int
     {
         return $this->id;

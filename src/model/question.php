@@ -19,6 +19,43 @@ class Question
         $this->status = $status;
     }
 
+    public static function find_by_id(int $id): ?Question
+    {
+        $question_query = new Query();
+        $questions = $question_query->select(TABLE_QUESTIONS, ['*'], [COLUMNS_QUESTIONS['id'] => $id]);
+
+        $question = $questions[0] ?? null;
+        if ($question) {
+            return new Question(
+                $question[COLUMNS_QUESTIONS['id']],
+                Sector::find_by_id($question[COLUMNS_QUESTIONS['sector_id']]),
+                $question[COLUMNS_QUESTIONS['text']],
+                $question[COLUMNS_QUESTIONS['type']],
+                $question[COLUMNS_QUESTIONS['status']]
+            );
+        }
+
+        return null;
+    }
+
+    public static function find_all(): array
+    {
+        $question_query = new Query();
+        $questions = $question_query->select(TABLE_QUESTIONS);
+
+        foreach ($questions as $key => $value) {
+            $questions[$key] = new Question(
+                $value[COLUMNS_QUESTIONS['id']],
+                Sector::find_by_id($value[COLUMNS_QUESTIONS['sector_id']]),
+                $value[COLUMNS_QUESTIONS['text']],
+                $value[COLUMNS_QUESTIONS['type']],
+                $value[COLUMNS_QUESTIONS['status']]
+            );
+        }
+
+        return $questions;
+    }
+
     public function get_id(): int
     {
         return $this->id;

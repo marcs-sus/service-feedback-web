@@ -49,6 +49,23 @@ class User
         return null;
     }
 
+    public static function find_all(): array
+    {
+        $user_query = new Query();
+        $users_data = $user_query->select(TABLE_ADMIN_USERS);
+
+        $users = [];
+        foreach ($users_data as $user) {
+            $users[] = new User(
+                $user[COLUMNS_ADMIN_USERS['id']],
+                $user[COLUMNS_ADMIN_USERS['username']],
+                $user[COLUMNS_ADMIN_USERS['password_hash']]
+            );
+        }
+
+        return $users;
+    }
+
     public function verify_password(string $password): bool
     {
         return password_verify($password, $this->password_hash);
