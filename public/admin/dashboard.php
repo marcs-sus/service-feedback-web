@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../src/functions/auth_required.php';
 
 // Enforce authentication
-auth_required();
+auth_required('login.php');
 ?>
 
 <!DOCTYPE html>
