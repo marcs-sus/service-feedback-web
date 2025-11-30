@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 
 // Fetch all sectors from the database
 $sectors = Sector::find_all();
@@ -41,10 +41,10 @@ $sectors = Sector::find_all();
                         <a href="edit_sector.php?id=<?= urlencode($sector->get_id()) ?>">
                             Edit
                         </a>
-                        <form action="../../../../src/actions/sector_actions.php"
+                        <form action="../../../../src/crud_actions/delete.php"
                             method="POST" style="display:inline;"
                             onsubmit="return confirm('Are you sure you want to delete this sector?');">
-                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="entity" value="sector">
                             <input type="hidden" name="sector_id" value="<?= $sector->get_id() ?>">
                             <button type="submit">Delete</button>
                         </form>

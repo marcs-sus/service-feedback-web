@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../query.php';
 require_once __DIR__ . '/sector.php';
 
-class Question
+class Question implements JsonSerializable
 {
     private int $id;
     private Sector $sector;
@@ -56,6 +57,29 @@ class Question
         return $questions;
     }
 
+    public static function find_all_by_sector(int $sector_id): array
+    {
+        $question_query = new Query();
+        $questions_result = $question_query->select(
+            TABLE_QUESTIONS,
+            ['*'],
+            [COLUMNS_QUESTIONS['status'] => true, COLUMNS_QUESTIONS['sector_id'] => $sector_id]
+        );
+
+        $questions = [];
+        foreach ($questions_result as $question) {
+            $questions[] = new Question(
+                $question[COLUMNS_QUESTIONS['id']],
+                Sector::find_by_id($question[COLUMNS_QUESTIONS['sector_id']]),
+                $question[COLUMNS_QUESTIONS['text']],
+                $question[COLUMNS_QUESTIONS['type']],
+                $question[COLUMNS_QUESTIONS['status']]
+            );
+        }
+
+        return $questions;
+    }
+
     public function get_id(): int
     {
         return $this->id;
@@ -84,5 +108,16 @@ class Question
     public function get_status(): bool
     {
         return $this->status;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            COLUMNS_QUESTIONS['id'] => $this->id,
+            COLUMNS_QUESTIONS['sector_id'] => $this->sector->get_id(),
+            COLUMNS_QUESTIONS['text'] => $this->text,
+            COLUMNS_QUESTIONS['type'] => $this->scale_type,
+            COLUMNS_QUESTIONS['status'] => $this->status,
+        ];
     }
 }

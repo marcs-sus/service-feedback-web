@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 require_once __DIR__ . '/../../../../src/model/question.php';
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 
 $sectors = Sector::find_all();
 $question = Question::find_by_id($_GET['id']);
@@ -21,8 +21,8 @@ $question = Question::find_by_id($_GET['id']);
 
 <body>
     <h1>Edit Question</h1>
-    <form action="../../../../src/actions/question_actions.php" method="POST">
-        <input type="hidden" name="action" value="update">
+    <form action="../../../../src/crud_actions/update.php" method="POST">
+        <input type="hidden" name="entity" value="question">
         <input type="hidden" name="question_id" value="<?= $_GET['id'] ?>">
         <label for="question_sector">Sector:</label>
         <select id="question_sector" name="question_sector">

@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/device.php';
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 
 // Fetch all devices from the database
 $devices = Device::find_all();
@@ -41,10 +41,10 @@ $devices = Device::find_all();
                         <a href="edit_device.php?id=<?= urlencode($device->get_id()) ?>">
                             Edit
                         </a>
-                        <form action="../../../../src/actions/device_actions.php"
+                        <form action="../../../../src/crud_actions/delete.php"
                             method="POST" style="display:inline;"
                             onsubmit="return confirm('Are you sure you want to delete this device?');">
-                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="entity" value="device">
                             <input type="hidden" name="device_id" value="<?= $device->get_id() ?>">
                             <button type="submit">Delete</button>
                         </form>

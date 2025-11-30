@@ -1,16 +1,21 @@
 <?php
-require_once __DIR__ . '/../src/functions/postgres.php';
-require_once __DIR__ . '/../src/functions/questions.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../src/model/question.php';
 
 // Get device and sector from URL parameters, default to 1
-$device_id = $_GET['device'] ?? 1 && $_GET['device'] = 1;
-$sector_id = $_GET['sector'] ?? 1 && $_GET['sector'] = 1;
+$device_id = isset($_GET['device']) ? (int) $_GET['device'] : 1;
+$sector_id = isset($_GET['sector']) ? (int) $_GET['sector'] : 1;
 
-// Query all questions from the database
-$questions = get_all_questions();
+// Keep $_GET values in sync in case other code relies on them
+$_GET['device'] = $device_id;
+$_GET['sector'] = $sector_id;
+
+// Query all questions from the database using the resolved sector id
+$questions = Question::find_all_by_sector($sector_id);
 
 // Convert questions to JSON for JavaScript
 $questions_json = json_encode($questions);
+$columns_json = json_encode(COLUMNS_QUESTIONS);
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +66,7 @@ $questions_json = json_encode($questions);
         const questions = <?= $questions_json ?>;
         const device_id = <?= $device_id ?>;
         const sector_id = <?= $sector_id ?>;
-        const COLUMNS = {
-            id: '<?= COLUMNS_QUESTIONS['id'] ?>',
-            sector: '<?= COLUMNS_QUESTIONS['sector_id'] ?>',
-            text: '<?= COLUMNS_QUESTIONS['text'] ?>',
-        };
+        const COLUMNS = <?= $columns_json ?>;
     </script>
     <script src="js/index.js"></script>
 </body>
@@ -73,7 +74,7 @@ $questions_json = json_encode($questions);
     <h1>Your spontaneous review is anonymous, no personal information is requested or stored.</h1>
 </footer>
 
-<a href="admin/login.php" id="admin-login-link">
+<a href="admin/login_page.php" id="admin-login-link">
     <img src="assets/adm.svg" alt="Admin Login" class="admin-login-icon" />
 </a>
 

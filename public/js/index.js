@@ -164,7 +164,7 @@ async function submitEvaluation() {
   };
 
   try {
-    const response = await fetch("form_submit.php", {
+    const response = await fetch("../src/form_submit.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../src/functions/postgres.php';
-require_once __DIR__ . '/../src/functions/evaluations.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/query.php';
 
 // Set JSON response header
 header('Content-Type: application/json');
@@ -40,19 +40,47 @@ try {
     }
 
     // Save evaluation
-    $result = save_evaluation($responses, $feedback, $device_id, $sector_id);
+    try {
+        $query = new Query();
 
-    if ($result) {
+        // Insert each response into the evaluations table
+        foreach ($responses as $question_id => $score) {
+            $query->insert(
+                TABLE_EVALUATIONS,
+                [
+                    COLUMNS_EVALUATIONS['question_id'] => $question_id,
+                    COLUMNS_EVALUATIONS['sector_id'] => $sector_id,
+                    COLUMNS_EVALUATIONS['device_id'] => $device_id,
+                    COLUMNS_EVALUATIONS['score'] => $score,
+                ]
+            );
+        }
+
+        // Insert feedback if provided
+        if ($feedback !== null && trim($feedback) !== '') {
+            $query->insert(
+                TABLE_FEEDBACK,
+                [
+                    COLUMNS_FEEDBACK['sector_id'] => $sector_id,
+                    COLUMNS_FEEDBACK['device_id'] => $device_id,
+                    COLUMNS_FEEDBACK['text'] => $feedback
+                ]
+            );
+        }
+
+        // Return success response
         echo json_encode([
             'success' => true,
             'message' => 'Evaluation saved successfully'
         ]);
-    } else {
+    } catch (Exception $ex) {
         http_response_code(500);
         echo json_encode([
             'success' => false,
             'message' => 'Error saving evaluation'
         ]);
+
+        throw new Exception('Database error: ' . $ex->getMessage());
     }
 } catch (Exception $ex) {
     http_response_code(400);

@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +16,8 @@ auth_required('../../login.php');
 
 <body>
     <h1>Create New Device</h1>
-    <form action="../../../../src/actions/device_actions.php" method="POST">
-        <input type="hidden" name="action" value="create">
+    <form action="../../../../src/crud_actions/create.php" method="POST">
+        <input type="hidden" name="entity" value="device">
         <label for="device_name">Device Name:</label>
         <input type="text" id="device_name" name="device_name" required>
         <br><br>

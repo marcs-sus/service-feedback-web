@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 
 $sectors = Sector::find_all();
 ?>
@@ -20,8 +20,8 @@ $sectors = Sector::find_all();
 
 <body>
     <h1>Create New Question</h1>
-    <form action="../../../../src/actions/question_actions.php" method="POST">
-        <input type="hidden" name="action" value="create">
+    <form action="../../../../src/crud_actions/create.php" method="POST">
+        <input type="hidden" name="entity" value="question">
         <label for="question_sector">Sector:</label>
         <select id="question_sector" name="question_sector">
             <?php foreach ($sectors as $sector) : ?>

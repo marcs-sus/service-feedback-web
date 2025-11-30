@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
 // Enforce authentication
-auth_required('../../login.php');
+auth_required('../../login_page.php');
 
 $sector = Sector::find_by_id($_GET['id']);
 ?>
@@ -19,8 +19,8 @@ $sector = Sector::find_by_id($_GET['id']);
 
 <body>
     <h1>Edit Sector</h1>
-    <form action="../../../../src/actions/sector_actions.php" method="POST">
-        <input type="hidden" name="action" value="update">
+    <form action="../../../../src/crud_actions/update.php" method="POST">
+        <input type="hidden" name="entity" value="sector">
         <input type="hidden" name="sector_id" value="<?= $_GET['id'] ?>">
         <label for="sector_name">Sector Name:</label>
         <input type="text" id="sector_name" name="sector_name" value="<?= $sector->get_name() ?>" required>

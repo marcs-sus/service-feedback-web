@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../auth.php';
+require_once __DIR__ . '/auth.php';
 
 // Redirects to login page if user is not authenticated
-function auth_required(string $login_path = 'login.php'): void
+function auth_required(string $login_path = 'login_page.php'): void
 {
     $auth = new Auth();
     if (!$auth->is_authenticated()) {

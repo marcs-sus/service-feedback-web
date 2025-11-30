@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../src/functions/auth_required.php';
+require_once __DIR__ . '/../../src/auth/auth_required.php';
 
 // Enforce authentication
-auth_required('login.php');
+auth_required('login_page.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ auth_required('login.php');
 
 <body>
     <h1>TEST</h1>
-    <a href="logout.php">Logout</a>
+    <a href="../../src/auth/logout.php">Logout</a>
 </body>
 
 </html>

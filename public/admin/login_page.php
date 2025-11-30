@@ -13,7 +13,7 @@
     <div id="form-container">
         <h2>Admin Login</h2>
         <!-- Login form -->
-        <form action="auth_submit.php" method="POST">
+        <form action="../../src/auth/login.php" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
