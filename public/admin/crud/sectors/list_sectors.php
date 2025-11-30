@@ -15,45 +15,70 @@ $sectors = Sector::find_all();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sectors</title>
+    <title>Sectors Management</title>
+    <link rel="stylesheet" href="../../../css/admin.css">
 </head>
 
 <body>
+    <!-- Navigation -->
+    <nav>
+        <h1>Admin Panel</h1>
+        <ul>
+            <li><a href="../../dashboard.php">Dashboard</a></li>
+            <li><a href="list_sectors.php">Sectors</a></li>
+            <li><a href="../devices/list_devices.php">Devices</a></li>
+            <li><a href="../questions/list_questions.php">Questions</a></li>
+            <li><a href="../../../../src/auth/logout.php">Logout</a></li>
+        </ul>
+    </nav>
 
-    <h1>Sectors</h1>
-    <a href="create_sector.php">Create New Sector</a>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($sectors as $sector) : ?>
-                <tr>
-                    <td><?= htmlspecialchars($sector->get_id()) ?></td>
-                    <td><?= htmlspecialchars($sector->get_name()) ?></td>
-                    <td><?= $sector->is_active() ? 'Active' : 'Inactive' ?></td>
-                    <td>
-                        <a href="edit_sector.php?id=<?= urlencode($sector->get_id()) ?>">
-                            Edit
-                        </a>
-                        <form action="../../../../src/crud_actions/delete.php"
-                            method="POST" style="display:inline;"
-                            onsubmit="return confirm('Are you sure you want to delete this sector?');">
-                            <input type="hidden" name="entity" value="sector">
-                            <input type="hidden" name="sector_id" value="<?= $sector->get_id() ?>">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="admin-header">
+            <h1>Sectors</h1>
+            <a href="create_sector.php" class="btn-primary">+ Create New Sector</a>
+        </div>
 
+        <?php if (count($sectors) > 0) : ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($sectors as $sector) : ?>
+                        <tr>
+                            <td><?= htmlspecialchars($sector->get_id()) ?></td>
+                            <td><?= htmlspecialchars($sector->get_name()) ?></td>
+                            <td>
+                                <span style="color: <?= $sector->is_active() ? '#28a745' : '#dc3545' ?>;">
+                                    <?= $sector->is_active() ? 'Active' : 'Inactive' ?>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a href="edit_sector.php?id=<?= urlencode($sector->get_id()) ?>" class="btn-edit">Edit</a>
+                                    <form action="../../../../src/crud_actions/delete.php" method="POST" style="margin: 0;">
+                                        <input type="hidden" name="entity" value="sector">
+                                        <input type="hidden" name="sector_id" value="<?= $sector->get_id() ?>">
+                                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this sector?');">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <div class="empty-state">
+                <p>No sectors found. <a href="create_sector.php">Create one now.</a></p>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>
