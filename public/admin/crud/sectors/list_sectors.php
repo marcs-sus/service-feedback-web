@@ -25,6 +25,7 @@ $sectors = Sector::find_all();
         <h1>Admin Panel</h1>
         <ul>
             <li><a href="../../dashboard.php">Dashboard</a></li>
+            <li><a href="../../evaluation_summary.php">Evaluation Summary</a></li>
             <li><a href="list_sectors.php">Sectors</a></li>
             <li><a href="../devices/list_devices.php">Devices</a></li>
             <li><a href="../questions/list_questions.php">Questions</a></li>
