@@ -59,7 +59,6 @@ $questions = Question::find_all();
                             <td><?= htmlspecialchars($question->get_id()) ?></td>
                             <td><?= htmlspecialchars($question->get_sector()->get_name()) ?></td>
                             <td><?= htmlspecialchars($question->get_text()) ?></td>
-                            <td><?= htmlspecialchars($question->get_scale_type()) ?></td>
                             <td>
                                 <span style="color: <?= $question->is_active() ? '#28a745' : '#dc3545' ?>;">
                                     <?= $question->is_active() ? 'Active' : 'Inactive' ?>

@@ -23,7 +23,6 @@ CREATE TABLE
         question_id SERIAL PRIMARY KEY,
         sector_id INT REFERENCES sectors (sector_id),
         question_text TEXT NOT NULL,
-        scale_type INT DEFAULT 10,
         status BOOLEAN DEFAULT TRUE
     );
 

@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $query->insert(TABLE_QUESTIONS, [
                     COLUMNS_QUESTIONS['sector_id'] => $question_sector,
                     COLUMNS_QUESTIONS['text'] => $question_text,
-                    COLUMNS_QUESTIONS['type'] => $question_type,
                     COLUMNS_QUESTIONS['status'] => $question_status
                 ]);
 
@@ -55,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             default:
                 throw new Exception('Invalid entity specified.');
         }
-    } catch (Exception $e) {
-        die('An error occurred: ' . $e->getMessage());
+    } catch (Exception $ex) {
+        die('An error occurred: ' . $ex->getMessage());
     }
 
     exit;

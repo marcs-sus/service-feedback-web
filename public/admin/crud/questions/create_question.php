@@ -57,14 +57,6 @@ $sectors = Sector::find_all();
                 </div>
 
                 <div class="form-group">
-                    <label for="question_type">Scale Type:</label>
-                    <select id="question_type" name="question_type" required>
-                        <option value="10">1 - 10 Scale</option>
-                        <option value="5">1 - 5 Scale</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="question_status">Status:</label>
                     <select id="question_status" name="question_status" required>
                         <option value="1">Active</option>

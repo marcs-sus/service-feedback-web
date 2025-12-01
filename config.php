@@ -40,7 +40,6 @@ define(
         'id' => 'question_id',
         'sector_id' => 'sector_id',
         'text' => 'question_text',
-        'type' => 'scale_type',
         'status' => 'status'
     ]
 );

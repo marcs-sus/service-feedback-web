@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $query->update(TABLE_QUESTIONS, [
                     COLUMNS_QUESTIONS['sector_id'] => $question_sector,
                     COLUMNS_QUESTIONS['text'] => $question_text,
-                    COLUMNS_QUESTIONS['type'] => $question_type,
                     COLUMNS_QUESTIONS['status'] => $question_status
                 ], [
                     COLUMNS_QUESTIONS['id'] => $question_id
@@ -58,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ], [
                     COLUMNS_SECTORS['id'] => $sector_id
                 ]);
-                
+
                 header('Location: ../../public/admin/crud/sectors/list_sectors.php');
                 break;
             default:
                 throw new Exception('Invalid entity specified.');
         }
-    } catch (Exception $e) {
-        die('An error occurred: ' . $e->getMessage());
+    } catch (Exception $ex) {
+        die('An error occurred: ' . $ex->getMessage());
     }
 
     exit;

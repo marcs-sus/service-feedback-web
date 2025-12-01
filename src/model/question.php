@@ -8,15 +8,13 @@ class Question implements JsonSerializable
     private int $id;
     private Sector $sector;
     private string $text;
-    private int $scale_type = 10;
     private bool $status = true;
 
-    public function __construct(int $id, Sector $sector, string $text, int $scale_type = 10, bool $status = true)
+    public function __construct(int $id, Sector $sector, string $text, bool $status = true)
     {
         $this->id = $id;
         $this->sector = $sector;
         $this->text = $text;
-        $this->scale_type = $scale_type;
         $this->status = $status;
     }
 
@@ -31,7 +29,6 @@ class Question implements JsonSerializable
                 $question[COLUMNS_QUESTIONS['id']],
                 Sector::find_by_id($question[COLUMNS_QUESTIONS['sector_id']]),
                 $question[COLUMNS_QUESTIONS['text']],
-                $question[COLUMNS_QUESTIONS['type']],
                 $question[COLUMNS_QUESTIONS['status']]
             );
         }
@@ -49,7 +46,6 @@ class Question implements JsonSerializable
                 $value[COLUMNS_QUESTIONS['id']],
                 Sector::find_by_id($value[COLUMNS_QUESTIONS['sector_id']]),
                 $value[COLUMNS_QUESTIONS['text']],
-                $value[COLUMNS_QUESTIONS['type']],
                 $value[COLUMNS_QUESTIONS['status']]
             );
         }
@@ -72,7 +68,6 @@ class Question implements JsonSerializable
                 $value[COLUMNS_QUESTIONS['id']],
                 Sector::find_by_id($value[COLUMNS_QUESTIONS['sector_id']]),
                 $value[COLUMNS_QUESTIONS['text']],
-                $value[COLUMNS_QUESTIONS['type']],
                 $value[COLUMNS_QUESTIONS['status']]
             );
         }
@@ -95,11 +90,6 @@ class Question implements JsonSerializable
         return $this->text;
     }
 
-    public function get_scale_type(): int
-    {
-        return $this->scale_type;
-    }
-
     public function is_active(): bool
     {
         return $this->status;
@@ -116,7 +106,6 @@ class Question implements JsonSerializable
             COLUMNS_QUESTIONS['id'] => $this->id,
             COLUMNS_QUESTIONS['sector_id'] => $this->sector->get_id(),
             COLUMNS_QUESTIONS['text'] => $this->text,
-            COLUMNS_QUESTIONS['type'] => $this->scale_type,
             COLUMNS_QUESTIONS['status'] => $this->status,
         ];
     }

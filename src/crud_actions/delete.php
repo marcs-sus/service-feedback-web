@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             default:
                 throw new Exception('Invalid entity specified.');
         }
-    } catch (Exception $e) {
-        die('An error occurred: ' . $e->getMessage());
+    } catch (Exception $ex) {
+        die('An error occurred: ' . $ex->getMessage());
     }
 
     exit;

@@ -59,14 +59,6 @@ $question = Question::find_by_id($_GET['id']);
                 </div>
 
                 <div class="form-group">
-                    <label for="question_type">Scale Type:</label>
-                    <select id="question_type" name="question_type" required>
-                        <option value="10" <?php if ($question->get_scale_type() == 10) echo 'selected'; ?>>1 - 10 Scale</option>
-                        <option value="5" <?php if ($question->get_scale_type() == 5) echo 'selected'; ?>>1 - 5 Scale</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="question_status">Status:</label>
                     <select id="question_status" name="question_status" required>
                         <option value="1" <?php if ($question->is_active()) echo 'selected'; ?>>Active</option>
