@@ -1,8 +1,8 @@
 <?php
-require_once '../query.php';
-require_once 'sector.php';
-require_once 'question.php';
-require_once 'device.php';
+require_once __DIR__ . '/../query.php';
+require_once __DIR__ . '/sector.php';
+require_once __DIR__ . '/question.php';
+require_once __DIR__ . '/device.php';
 
 class Evaluation
 {
@@ -11,9 +11,9 @@ class Evaluation
     private Question $question;
     private Device $device;
     private int $score;
-    private DateTime $created_at;
+    private string $created_at;
 
-    public function __construct(int $id, Sector $sector, Question $question, Device $device, int $score, DateTime $created_at)
+    public function __construct(int $id, Sector $sector, Question $question, Device $device, int $score, string $created_at)
     {
         $this->id = $id;
         $this->sector = $sector;
@@ -72,14 +72,14 @@ class Evaluation
         );
 
         $evaluations = [];
-        foreach ($evaluations_result as $evaluation) {
-            $evaluations[] = new Evaluation(
-                $evaluation[COLUMNS_EVALUATIONS['id']],
-                Sector::find_by_id($evaluation[COLUMNS_EVALUATIONS['sector_id']]),
-                Question::find_by_id($evaluation[COLUMNS_EVALUATIONS['question_id']]),
-                Device::find_by_id($evaluation[COLUMNS_EVALUATIONS['device_id']]),
-                $evaluation[COLUMNS_EVALUATIONS['score']],
-                $evaluation[COLUMNS_EVALUATIONS['created_at']]
+        foreach ($evaluations_result as $key => $value) {
+            $evaluations[$key] = new Evaluation(
+                $value[COLUMNS_EVALUATIONS['id']],
+                Sector::find_by_id($value[COLUMNS_EVALUATIONS['sector_id']]),
+                Question::find_by_id($value[COLUMNS_EVALUATIONS['question_id']]),
+                Device::find_by_id($value[COLUMNS_EVALUATIONS['device_id']]),
+                $value[COLUMNS_EVALUATIONS['score']],
+                $value[COLUMNS_EVALUATIONS['created_at']]
             );
         }
 
@@ -149,7 +149,7 @@ class Evaluation
         return $this->score;
     }
 
-    public function get_created_at(): DateTime
+    public function get_created_at(): string
     {
         return $this->created_at;
     }

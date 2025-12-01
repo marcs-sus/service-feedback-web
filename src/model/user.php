@@ -55,11 +55,11 @@ class User
         $users_data = $user_query->select(TABLE_ADMIN_USERS);
 
         $users = [];
-        foreach ($users_data as $user) {
-            $users[] = new User(
-                $user[COLUMNS_ADMIN_USERS['id']],
-                $user[COLUMNS_ADMIN_USERS['username']],
-                $user[COLUMNS_ADMIN_USERS['password_hash']]
+        foreach ($users_data as $key => $value) {
+            $users[$key] = new User(
+                $value[COLUMNS_ADMIN_USERS['id']],
+                $value[COLUMNS_ADMIN_USERS['username']],
+                $value[COLUMNS_ADMIN_USERS['password_hash']]
             );
         }
 

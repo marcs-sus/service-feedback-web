@@ -67,13 +67,13 @@ class Question implements JsonSerializable
         );
 
         $questions = [];
-        foreach ($questions_result as $question) {
-            $questions[] = new Question(
-                $question[COLUMNS_QUESTIONS['id']],
-                Sector::find_by_id($question[COLUMNS_QUESTIONS['sector_id']]),
-                $question[COLUMNS_QUESTIONS['text']],
-                $question[COLUMNS_QUESTIONS['type']],
-                $question[COLUMNS_QUESTIONS['status']]
+        foreach ($questions_result as $key => $value) {
+            $questions[$key] = new Question(
+                $value[COLUMNS_QUESTIONS['id']],
+                Sector::find_by_id($value[COLUMNS_QUESTIONS['sector_id']]),
+                $value[COLUMNS_QUESTIONS['text']],
+                $value[COLUMNS_QUESTIONS['type']],
+                $value[COLUMNS_QUESTIONS['status']]
             );
         }
 

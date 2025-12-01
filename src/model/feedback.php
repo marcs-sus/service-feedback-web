@@ -1,5 +1,7 @@
 <?php
-
+require_once __DIR__ . '/../query.php';
+require_once __DIR__ . '/sector.php';
+require_once __DIR__ . '/device.php';
 
 class Feedback
 {
@@ -7,9 +9,9 @@ class Feedback
     private Sector $sector;
     private Device $device;
     private string $feedback_text;
-    private DateTime $created_at;
+    private string $created_at;
 
-    public function __construct(int $id, Sector $sector, Device $device, string $feedback_text, DateTime $created_at)
+    public function __construct(int $id, Sector $sector, Device $device, string $feedback_text, string $created_at)
     {
         $this->id = $id;
         $this->sector = $sector;
@@ -64,13 +66,13 @@ class Feedback
             [COLUMNS_FEEDBACK['sector_id'] => $sector_id]
         );
 
-        foreach ($feedbacks as $feedback) {
-            $feedbacks[] = new Feedback(
-                $feedback[COLUMNS_FEEDBACK['id']],
-                Sector::find_by_id($feedback[COLUMNS_FEEDBACK['sector_id']]),
-                Device::find_by_id($feedback[COLUMNS_FEEDBACK['device_id']]),
-                $feedback[COLUMNS_FEEDBACK['text']],
-                $feedback[COLUMNS_FEEDBACK['created_at']]
+        foreach ($feedbacks as $key => $value) {
+            $feedbacks[$key] = new Feedback(
+                $value[COLUMNS_FEEDBACK['id']],
+                Sector::find_by_id($value[COLUMNS_FEEDBACK['sector_id']]),
+                Device::find_by_id($value[COLUMNS_FEEDBACK['device_id']]),
+                $value[COLUMNS_FEEDBACK['text']],
+                $value[COLUMNS_FEEDBACK['created_at']]
             );
         }
 
@@ -97,7 +99,7 @@ class Feedback
         return $this->feedback_text;
     }
 
-    public function get_created_at(): DateTime
+    public function get_created_at(): string
     {
         return $this->created_at;
     }
