@@ -100,6 +100,8 @@ class Evaluation
             $scores[$key] = $value[COLUMNS_EVALUATIONS['score']];
         }
 
+        if (empty($scores)) return 0;
+
         $average = array_sum($scores) / count($scores);
 
         return $average;
@@ -118,6 +120,8 @@ class Evaluation
         foreach ($evaluation_result as $key => $value) {
             $scores[$key] = $value[COLUMNS_EVALUATIONS['score']];
         }
+
+        if (empty($scores)) return 0;
 
         $average = array_sum($scores) / count($scores);
 
