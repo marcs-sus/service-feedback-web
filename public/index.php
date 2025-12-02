@@ -15,7 +15,7 @@ $questions = Question::find_all_by_sector($sector_id);
 
 // Convert questions to JSON for JavaScript
 $questions_json = json_encode($questions);
-$columns_json = json_encode(COLUMNS_QUESTIONS);
+$question_columns = json_encode(COLUMNS_QUESTIONS);
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +66,7 @@ $columns_json = json_encode(COLUMNS_QUESTIONS);
         const questions = <?= $questions_json ?>;
         const device_id = <?= $device_id ?>;
         const sector_id = <?= $sector_id ?>;
-        const COLUMNS = <?= $columns_json ?>;
+        const questionColumns = <?= $question_columns ?>;
     </script>
     <script src="js/index.js"></script>
 </body>

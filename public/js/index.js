@@ -50,14 +50,14 @@ function renderQuestion(index) {
   btnSubmit.style.display = "none";
 
   const question = questions[index];
-  const questionId = question[COLUMNS.id];
+  const questionId = question[questionColumns.id];
 
   // Update progress
   currentStepSpan.textContent = index + 1;
   updateProgressBar();
 
   // Update question text
-  questionText.textContent = question[COLUMNS.text];
+  questionText.textContent = question[questionColumns.text];
 
   // Clear and re-render scale
   scaleContainer.innerHTML = "";
@@ -107,7 +107,7 @@ function updateNavigation() {
 
   // Check if current question has an answer
   const currentQuestion = questions[formStates.currentStep];
-  const currentQuestionId = currentQuestion[COLUMNS.id];
+  const currentQuestionId = currentQuestion[questionColumns.id];
   const hasAnswer = formStates.responses[currentQuestionId] !== undefined;
 
   // Next button
@@ -176,7 +176,11 @@ async function submitEvaluation() {
 
     if (result.success) {
       showMessage("Evaluation submitted successfully!", "success");
-      window.location.href = "thank.php";
+      window.location.href =
+        "thank.php?device=" +
+        formStates.device_id +
+        "&sector=" +
+        formStates.sector_id;
     } else {
       showMessage(
         "An error occurred while submitting the evaluation " +
