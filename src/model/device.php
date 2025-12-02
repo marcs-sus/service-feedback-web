@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../query.php';
 
-class Device
+class Device implements JsonSerializable
 {
     private int $id;
     private string $name;
@@ -61,5 +61,14 @@ class Device
     public function is_active(): bool
     {
         return $this->status;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            COLUMNS_DEVICES['id'] => $this->id,
+            COLUMNS_DEVICES['name'] => $this->name,
+            COLUMNS_DEVICES['status'] => $this->status
+        ];
     }
 }

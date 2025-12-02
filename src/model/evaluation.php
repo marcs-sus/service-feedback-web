@@ -4,7 +4,7 @@ require_once __DIR__ . '/sector.php';
 require_once __DIR__ . '/question.php';
 require_once __DIR__ . '/device.php';
 
-class Evaluation
+class Evaluation implements JsonSerializable
 {
     private int $id;
     private Sector $sector;
@@ -156,5 +156,17 @@ class Evaluation
     public function get_created_at(): string
     {
         return $this->created_at;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            COLUMNS_EVALUATIONS['id'] => $this->id,
+            COLUMNS_EVALUATIONS['sector_id'] => $this->sector->get_id(),
+            COLUMNS_EVALUATIONS['question_id'] => $this->question->get_id(),
+            COLUMNS_EVALUATIONS['device_id'] => $this->device->get_id(),
+            COLUMNS_EVALUATIONS['score'] => $this->score,
+            COLUMNS_EVALUATIONS['created_at'] => $this->created_at,
+        ];
     }
 }

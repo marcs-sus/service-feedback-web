@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../query.php';
 
-class Sector
+class Sector implements JsonSerializable
 {
     private int $id;
     private string $name;
@@ -61,5 +61,14 @@ class Sector
     public function is_active(): bool
     {
         return $this->status;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            COLUMNS_SECTORS['id'] => $this->id,
+            COLUMNS_SECTORS['name'] => $this->name,
+            COLUMNS_SECTORS['status'] => $this->status,
+        ];
     }
 }
