@@ -32,7 +32,6 @@ foreach ($sectors as $sector) {
             'average' => round($avg, 2)
         ];
     } catch (Exception $ex) {
-        // Handle case where sector has no evaluations
         $sector_averages[] = [
             'sector' => $sector,
             'average' => 0
@@ -48,7 +47,6 @@ foreach ($questions as $question) {
             'average' => round($avg, 2)
         ];
     } catch (Exception $ex) {
-        // Handle case where question has no evaluations
         $question_averages[] = [
             'question' => $question,
             'average' => 0
@@ -110,20 +108,26 @@ $evaluation_columns = json_encode(COLUMNS_EVALUATIONS);
         <!-- Charts Section -->
         <div class="charts-section">
             <div class="charts-header">
-                <h2>Charts</h2>
+                <h2>Analytics & Performance</h2>
             </div>
 
             <div class="charts-container">
-                <canvas id="scoreDistribution"></canvas>
-            </div>
-            <div class="charts-container">
-                <canvas id="sectorComparison"></canvas>
-            </div>
-            <div class="charts-container">
-                <canvas id="questionPerformance"></canvas>
-            </div>
-            <div class="charts-container">
-                <canvas id="deviceActivity"></canvas>
+                <div class="chart-wrapper">
+                    <h3>Score Distribution</h3>
+                    <canvas id="scoreDistribution"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>Sector Comparison</h3>
+                    <canvas id="sectorComparison"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>Question Performance</h3>
+                    <canvas id="questionPerformance"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>Device Activity</h3>
+                    <canvas id="deviceActivity"></canvas>
+                </div>
             </div>
         </div>
 
@@ -219,6 +223,12 @@ $evaluation_columns = json_encode(COLUMNS_EVALUATIONS);
         <!-- Dashboard Cards -->
         <div class="dashboard-grid">
             <div class="dashboard-card">
+                <h2><?= $evaluations_count ?></h2>
+                <p>Total Evaluations</p>
+                <a href="evaluation_summary.php">View Details</a>
+            </div>
+
+            <div class="dashboard-card">
                 <h2><?= $sectors_count ?></h2>
                 <p>Total Sectors</p>
                 <a href="crud/sectors/list_sectors.php">Manage Sectors</a>
@@ -238,20 +248,12 @@ $evaluation_columns = json_encode(COLUMNS_EVALUATIONS);
         </div>
     </div>
 
-    <script src="../js/dashboard.js"></script>
-
     <script>
         // Pass data to JavaScript
         const sectors = <?= $sectors_json ?>;
         const devices = <?= $devices_json ?>;
         const questions = <?= $questions_json ?>;
         const evaluations = <?= $evaluations_json ?>;
-
-        // Pass counts to JavaScript
-        const sectorsCount = <?= $sectors_count ?>;
-        const devicesCount = <?= $devices_count ?>;
-        const questionsCount = <?= $questions_count ?>;
-        const evaluationsCount = <?= $evaluations_count ?>;
 
         // Pass averages to JavaScript
         const sectorAverages = <?= $sector_averages_json ?>;
@@ -263,6 +265,7 @@ $evaluation_columns = json_encode(COLUMNS_EVALUATIONS);
         const questionColumns = <?= $question_columns ?>;
         const evaluationColumns = <?= $evaluation_columns ?>;
     </script>
+    <script src="../js/dashboard.js"></script>
     <script src="../js/charts.js"></script>
 </body>
 

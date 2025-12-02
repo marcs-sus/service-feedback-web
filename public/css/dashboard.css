@@ -1,7 +1,6 @@
 /* Dashboard Page Styling */
 
-/* Analytics Section */
-.analytics-section,
+/* Charts Section */
 .charts-section {
   background-color: #fff;
   padding: 2rem;
@@ -10,8 +9,82 @@
   margin-bottom: 2rem;
 }
 
-.analytics-header,
 .charts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.charts-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Charts Container - Grid Layout */
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.chart-wrapper {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: relative;
+  min-height: 350px;
+}
+
+.chart-wrapper h3 {
+  color: #333;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.chart-wrapper canvas {
+  max-height: 300px;
+}
+
+/* Error message styling */
+.chart-error {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #856404;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chart-error::before {
+  content: "⚠";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.chart-error-hidden {
+  display: none;
+}
+
+/* Analytics Section */
+.analytics-section {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.analytics-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -143,6 +216,16 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrapper {
+    min-height: 300px;
+  }
+}
+
 @media (max-width: 768px) {
   .analytics-header {
     flex-direction: column;
@@ -171,6 +254,19 @@
     min-width: 100px;
   }
 
+  .charts-section {
+    padding: 1rem;
+  }
+
+  .chart-wrapper {
+    padding: 1rem;
+    min-height: 250px;
+  }
+
+  .chart-wrapper h3 {
+    font-size: 1rem;
+  }
+
   /* Hide columns on mobile for better readability */
   @media (max-width: 480px) {
     .analytics-table thead th:nth-child(2),
@@ -186,6 +282,16 @@
     .analytics-table thead th:last-child,
     .analytics-table tbody td:last-child {
       text-align: right;
+    }
+
+    .charts-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .chart-wrapper {
+      min-height: 300px;
+      padding: 0.75rem;
     }
   }
 }
