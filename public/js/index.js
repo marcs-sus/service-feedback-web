@@ -24,6 +24,26 @@ const btnNext = document.getElementById("btn-next");
 const btnSubmit = document.getElementById("btn-submit");
 const messageContainer = document.getElementById("message-container");
 
+// Timer variables
+let inactivityTimer;
+const INACTIVITY_TIMEOUT_SECONDS = 300; // 5 minutes
+let timerStarted = false;
+
+// Function to start the inactivity timer
+function startInactivityTimer() {
+  if (timerStarted) return;
+  timerStarted = true;
+  resetInactivityTimer();
+}
+
+// Function to reset the inactivity timer
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    window.location.reload();
+  }, INACTIVITY_TIMEOUT_SECONDS * 1000);
+}
+
 // Initialize form
 function initForm() {
   if (questions.length === 0) {
@@ -34,6 +54,9 @@ function initForm() {
   totalStepsSpan.textContent = formStates.totalSteps;
   renderQuestion(formStates.currentStep);
   updateProgressBar();
+
+  // Add event listener for feedback text input
+  feedbackText.addEventListener("input", resetInactivityTimer);
 }
 
 // Update progress bar
@@ -74,17 +97,24 @@ function renderQuestion(index) {
 
     btn.addEventListener("click", () => {
       selectScore(questionId, i);
+      resetInactivityTimer();
     });
 
     scaleContainer.appendChild(btn);
   }
 
   updateNavigation();
+  resetInactivityTimer();
 }
 
 // Handle score selection
 function selectScore(questionId, score) {
   formStates.responses[questionId] = score;
+
+  // Start timer if this is the first interaction with an answer
+  if (!timerStarted) {
+    startInactivityTimer();
+  }
 
   // Update visual feedback
   const buttons = scaleContainer.querySelectorAll(".scale-btn");
@@ -94,6 +124,7 @@ function selectScore(questionId, score) {
 
   // Enable next button
   btnNext.disabled = false;
+  resetInactivityTimer();
 }
 
 // Update navigation button states
@@ -121,6 +152,7 @@ function goToPrevious() {
 
     renderQuestion(formStates.currentStep);
   }
+  resetInactivityTimer();
 }
 
 // Navigate to next question
@@ -135,6 +167,7 @@ function goToNext() {
     // Show final feedback screen
     showFeedbackScreen();
   }
+  resetInactivityTimer();
 }
 
 // Display the feedback screen
@@ -149,12 +182,16 @@ function showFeedbackScreen() {
   totalStepsSpan.textContent = formStates.totalSteps;
   updateProgressBar();
   updateNavigation();
+  resetInactivityTimer();
 }
 
 // Submit service evaluation
 async function submitEvaluation() {
   btnSubmit.disabled = true;
   btnSubmit.textContent = t("submitting");
+
+  // Clear timer on submit
+  clearTimeout(inactivityTimer);
 
   const evaluationData = {
     responses: formStates.responses,
@@ -193,11 +230,13 @@ async function submitEvaluation() {
 
       btnSubmit.disabled = false;
       btnSubmit.textContent = t("submit");
+      resetInactivityTimer();
     }
   } catch (error) {
     showMessage(t("server_communication_error"), "error");
     btnSubmit.disabled = false;
     btnSubmit.textContent = t("submit");
+    resetInactivityTimer();
   }
 }
 
@@ -210,7 +249,7 @@ function showMessage(message, type) {
 
 // Reset form to initial state
 function resetForm() {
-  formStates.currentStep = 1;
+  formStates.currentStep = 0;
   formStates.responses = {};
   feedbackText.value = "";
 
@@ -223,6 +262,8 @@ function resetForm() {
   progressBar.style.display = "block";
 
   renderQuestion(formStates.currentStep);
+  clearTimeout(inactivityTimer);
+  timerStarted = false;
 }
 
 // Event listeners
