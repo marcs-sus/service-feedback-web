@@ -4,3 +4,12 @@
 # npm
 node_modules/
 npm-debug.log*
+
+# Composer
+vendor/
+
+# Environment variables (NEVER commit this!)
+.env
+
+# Keep the example environment file
+!.env.example

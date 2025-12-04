@@ -8,9 +8,9 @@ $requested_locale = $_GET['locale'] ?? null;
 $locale_manager = new LocaleManager($requested_locale);
 $current_locale = $locale_manager->get_current_locale();
 
-// Get device and sector from URL parameters, default to 1
-$device_id = isset($_GET['device']) ? (int) $_GET['device'] : 1;
-$sector_id = isset($_GET['sector']) ? (int) $_GET['sector'] : 1;
+// Get device and sector from URL parameters, fallback to config defaults
+$device_id = isset($_GET['device']) ? (int) $_GET['device'] : DEFAULT_DEVICE_ID;
+$sector_id = isset($_GET['sector']) ? (int) $_GET['sector'] : DEFAULT_SECTOR_ID;
 
 // Keep $_GET values in sync in case other code relies on them
 $_GET['device'] = $device_id;
@@ -19,20 +19,8 @@ $_GET['sector'] = $sector_id;
 // Query all questions from the database using the resolved sector id
 $questions = Question::find_all_by_sector($sector_id);
 
-// Get the translated text for each question
-$current_locale = $locale_manager->get_current_locale();
-$questions_with_translations = [];
-foreach ($questions as $question) {
-    $translated_text = $question->get_translated_text($current_locale);
-    $questions_with_translations[] = [
-        'id' => $question->get_id(),
-        'question_text' => $translated_text,
-        'sector_id' => $question->get_sector()->get_id()
-    ];
-}
-
-// Convert data to JSON for JavaScript
-$questions_json = json_encode($questions_with_translations);
+// Convert questions to JSON for JavaScript
+$questions_json = json_encode($questions);
 $question_columns = json_encode(COLUMNS_QUESTIONS);
 
 // Convert locale data to JSON for JavaScript

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config.php';
+
 class Session
 {
     private string $id;
@@ -16,11 +18,11 @@ class Session
     private function configure_cookie(): void
     {
         session_set_cookie_params([
-            'lifetime' => 0,
+            'lifetime' => SESSION_LIFETIME,
             'path' => '/',
-            'secure' => isset($_SERVER['HTTPS']),
-            'httponly' => true,
-            'samesite' => 'Lax'
+            'secure' => SESSION_SECURE,
+            'httponly' => SESSION_HTTPONLY,
+            'samesite' => SESSION_SAMESITE
         ]);
     }
 

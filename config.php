@@ -2,12 +2,32 @@
 // File used to store configuration settings
 // Values defined here are used across the application
 
+// Load the Dotenv library
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Application configuration
+define('APP_ENV', $_ENV['APP_ENV']);
+define('DEFAULT_LOCALE', $_ENV['DEFAULT_LOCALE']);
+
+// Session configuration
+define('SESSION_LIFETIME', $_ENV['SESSION_LIFETIME']);
+define('SESSION_SECURE', $_ENV['SESSION_SECURE']);
+define('SESSION_HTTPONLY', $_ENV['SESSION_HTTPONLY']);
+define('SESSION_SAMESITE', $_ENV['SESSION_SAMESITE']);
+
+// Default IDs
+define('DEFAULT_DEVICE_ID', $_ENV['DEFAULT_DEVICE_ID']);
+define('DEFAULT_SECTOR_ID', $_ENV['DEFAULT_SECTOR_ID']);
+
 // Database configuration
-define('DB_HOST', 'localhost');
-define('DB_PORT', '5432');
-define('DB_NAME', 'feedback_system');
-define('DB_USER', 'postgres');
-define('DB_PASSWORD', 'postgres');
+define('DB_HOST', $_ENV['DB_HOST']);
+define('DB_PORT', $_ENV['DB_PORT']);
+define('DB_NAME', $_ENV['DB_NAME']);
+define('DB_USER', $_ENV['DB_USER']);
+define('DB_PASSWORD', $_ENV['DB_PASSWORD']);
 
 // Database table names
 define('TABLE_SECTORS', 'sectors');
