@@ -7,9 +7,9 @@ $page_title_i18n = "sectors_management";
 // Fetch all sectors from the database
 $sectors = Sector::find_all();
 
-$confirm_delete_message = $locale_manager->get('confirm_delete_sector');
-
 require_once __DIR__ . '/../../shared/header.php';
+
+$confirm_delete_message = $locale_manager->get('confirm_delete_sector');
 ?>
 
 <!-- Main Content -->

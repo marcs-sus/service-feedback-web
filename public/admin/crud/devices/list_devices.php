@@ -7,9 +7,9 @@ $page_title_i18n = "devices_management";
 // Fetch all devices from the database
 $devices = Device::find_all();
 
-$confirm_delete_message = $locale_manager->get('confirm_delete_device');
-
 require_once __DIR__ . '/../../shared/header.php';
+
+$confirm_delete_message = $locale_manager->get('confirm_delete_device');
 ?>
 
 <!-- Main Content -->

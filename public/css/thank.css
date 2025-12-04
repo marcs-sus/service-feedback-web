@@ -1,33 +1,30 @@
 /* Thank You Page Styling */
 
-/* General body styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
   text-align: center;
 }
 
-/* Content container */
-div {
-  background: #fff;
-  padding: 3rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+body > div:not(:first-child) {
+  background: var(--color-bg-white);
+  padding: var(--spacing-xl) 3rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 600px;
+  animation: slideUp 0.5s ease;
 }
 
-h1 {
+body > div h1 {
   font-size: 2rem;
-  color: #333;
-  margin-bottom: 1rem;
+  color: var(--color-dark);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
-h2 {
+body > div h2 {
   font-size: 1.2rem;
   color: #555;
-  font-weight: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
 }
