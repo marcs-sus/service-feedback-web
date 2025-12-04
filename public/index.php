@@ -19,8 +19,20 @@ $_GET['sector'] = $sector_id;
 // Query all questions from the database using the resolved sector id
 $questions = Question::find_all_by_sector($sector_id);
 
-// Convert questions to JSON for JavaScript
-$questions_json = json_encode($questions);
+// Get the translated text for each question
+$current_locale = $locale_manager->get_current_locale();
+$questions_with_translations = [];
+foreach ($questions as $question) {
+    $translated_text = $question->get_translated_text($current_locale);
+    $questions_with_translations[] = [
+        'id' => $question->get_id(),
+        'question_text' => $translated_text,
+        'sector_id' => $question->get_sector()->get_id()
+    ];
+}
+
+// Convert data to JSON for JavaScript
+$questions_json = json_encode($questions_with_translations);
 $question_columns = json_encode(COLUMNS_QUESTIONS);
 
 // Convert locale data to JSON for JavaScript

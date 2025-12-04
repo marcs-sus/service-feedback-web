@@ -13,6 +13,7 @@ define('DB_PASSWORD', 'postgres');
 define('TABLE_SECTORS', 'sectors');
 define('TABLE_DEVICES', 'devices');
 define('TABLE_QUESTIONS', 'questions');
+define('TABLE_QUESTION_TRANSLATIONS', 'question_translations');
 define('TABLE_EVALUATIONS', 'evaluations');
 define('TABLE_FEEDBACK', 'feedback');
 define('TABLE_ADMIN_USERS', 'admin_users');
@@ -41,6 +42,17 @@ define(
         'sector_id' => 'sector_id',
         'text' => 'question_text',
         'status' => 'status'
+    ]
+);
+define(
+    'COLUMNS_QUESTION_TRANSLATIONS',
+    [
+        'id' => 'translation_id',
+        'question_id' => 'question_id',
+        'locale' => 'locale',
+        'text' => 'translated_text',
+        'created_at' => 'created_at',
+        'updated_at' => 'updated_at'
     ]
 );
 define(

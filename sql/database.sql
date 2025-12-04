@@ -26,6 +26,18 @@ CREATE TABLE
         status BOOLEAN DEFAULT TRUE
     );
 
+-- Table for Question Translations
+CREATE TABLE
+    question_translations (
+        translation_id SERIAL PRIMARY KEY,
+        question_id INT NOT NULL REFERENCES questions (question_id) ON DELETE CASCADE,
+        locale VARCHAR(10) NOT NULL,
+        translated_text TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (question_id, locale)
+    );
+
 -- Table of Evaluations from public form
 CREATE TABLE
     evaluations (

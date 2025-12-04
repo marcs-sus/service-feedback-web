@@ -44,6 +44,8 @@ $confirm_delete_message = $locale_manager->get('confirm_delete_question');
                         </td>
                         <td>
                             <div class="actions">
+                                <a href="translate_question.php?id=<?= urlencode($question->get_id()) ?>&<?= $locale_query ?>"
+                                    class="btn-edit" data-i18n="translate" title="Translate question"></a>
                                 <a href="edit_question.php?id=<?= urlencode($question->get_id()) ?>&<?= $locale_query ?>"
                                     class="btn-edit" data-i18n="edit"></a>
                                 <form action="../../../../src/crud_actions/delete.php" method="POST" style="margin: 0;">

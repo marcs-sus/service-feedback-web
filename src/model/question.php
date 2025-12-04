@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../query.php';
 require_once __DIR__ . '/sector.php';
+require_once __DIR__ . '/question_translation.php';
 
 class Question implements JsonSerializable
 {
@@ -73,6 +74,24 @@ class Question implements JsonSerializable
         }
 
         return $questions;
+    }
+
+    public function get_translated_text(string $locale): string
+    {
+        $translation = QuestionTranslation::find_by_question_and_locale($this->id, $locale);
+
+        if ($translation) {
+            return $translation->get_text();
+        }
+
+        if ($locale !== 'en_US') {
+            $fallback = QuestionTranslation::find_by_question_and_locale($this->id, 'en_US');
+            if ($fallback) {
+                return $fallback->get_text();
+            }
+        }
+
+        return $this->text;
     }
 
     public function get_id(): int
