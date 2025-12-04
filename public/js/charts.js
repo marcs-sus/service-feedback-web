@@ -1,23 +1,7 @@
 // Implementation of charts using Chart.js
 
-// Check if Chart.js is loaded
-if (typeof Chart === "undefined") {
-  displayChartError();
-} else {
-  initializeCharts();
-}
-
-// Function to display error message if Chart.js failed to load
-function displayChartError() {
-  const chartsContainer = document.querySelector(".charts-container");
-  if (chartsContainer) {
-    chartsContainer.innerHTML = `
-      <div class="chart-error" style="grid-column: 1 / -1;">
-        Unable to load Charts library. Please check your internet connection and refresh the page.
-      </div>
-    `;
-  }
-}
+// Initialize all charts
+initializeCharts();
 
 // Function to initialize all charts
 function initializeCharts() {
@@ -74,7 +58,7 @@ function initScoreDistribution(colors) {
       labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       datasets: [
         {
-          label: "Number of Evaluations",
+          label: t("number_of_evaluations"),
           data: scoreCount,
           backgroundColor: [
             "#FF6B6B",
@@ -101,7 +85,7 @@ function initScoreDistribution(colors) {
       plugins: {
         title: {
           display: true,
-          text: "Score Distribution",
+          text: t("score_distribution"),
           font: { size: 14, weight: "bold" },
           color: "#333",
         },
@@ -156,7 +140,7 @@ function initSectorComparison(colors) {
       labels: sectorNames,
       datasets: [
         {
-          label: "Average Score",
+          label: t("average_score"),
           data: sectorAveragesValues,
           backgroundColor: barColors,
           borderColor: "#333",
@@ -172,7 +156,7 @@ function initSectorComparison(colors) {
       plugins: {
         title: {
           display: true,
-          text: "Sector Comparison",
+          text: t("sector_comparison"),
           font: { size: 14, weight: "bold" },
           color: "#333",
         },
@@ -227,7 +211,7 @@ function initQuestionPerformance(colors) {
       labels: questionNames,
       datasets: [
         {
-          label: "Average Score",
+          label: t("average_score"),
           data: questionAveragesValues,
           backgroundColor: barColors,
           borderColor: "#333",
@@ -243,7 +227,7 @@ function initQuestionPerformance(colors) {
       plugins: {
         title: {
           display: true,
-          text: "Question Performance",
+          text: t("question_performance"),
           font: { size: 14, weight: "bold" },
           color: "#333",
         },
@@ -307,7 +291,7 @@ function initDeviceActivity(colors) {
       labels: deviceNames,
       datasets: [
         {
-          label: "Number of Evaluations",
+          label: t("number_of_evaluations"),
           data: deviceEvaluations,
           backgroundColor: doughnutColors.slice(0, deviceNames.length),
           borderColor: "#fff",
@@ -321,7 +305,7 @@ function initDeviceActivity(colors) {
       plugins: {
         title: {
           display: true,
-          text: "Device Activity",
+          text: t("device_activity"),
           font: { size: 14, weight: "bold" },
           color: "#333",
         },

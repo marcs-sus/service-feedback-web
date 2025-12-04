@@ -27,7 +27,7 @@ const messageContainer = document.getElementById("message-container");
 // Initialize form
 function initForm() {
   if (questions.length === 0) {
-    showMessage("No questions were found at this time.", "error");
+    showMessage(t("no_questions_found"), "error");
     return;
   }
 
@@ -154,7 +154,7 @@ function showFeedbackScreen() {
 // Submit service evaluation
 async function submitEvaluation() {
   btnSubmit.disabled = true;
-  btnSubmit.textContent = "Submitting...";
+  btnSubmit.textContent = t("submitting");
 
   const evaluationData = {
     responses: formStates.responses,
@@ -175,29 +175,29 @@ async function submitEvaluation() {
     const result = await response.json();
 
     if (result.success) {
-      showMessage("Evaluation submitted successfully!", "success");
+      showMessage(t("evaluation_submitted"), "success");
       window.location.href =
-        "thank.php?device=" +
+        "thank.php?locale=" +
+        currentLocale +
+        "&device=" +
         formStates.device_id +
         "&sector=" +
         formStates.sector_id;
     } else {
       showMessage(
-        "An error occurred while submitting the evaluation " +
-          (result.message || "Unknown Error"),
+        t("error_submitting_evaluation") +
+          " " +
+          (result.message || t("unknown_error")),
         "error"
       );
 
       btnSubmit.disabled = false;
-      btnSubmit.textContent = "Submit";
+      btnSubmit.textContent = t("submit");
     }
   } catch (error) {
-    showMessage(
-      "An error occurred while communicating with the server.",
-      "error"
-    );
+    showMessage(t("server_communication_error"), "error");
     btnSubmit.disabled = false;
-    btnSubmit.textContent = "Submit";
+    btnSubmit.textContent = t("submit");
   }
 }
 

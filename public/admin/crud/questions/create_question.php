@@ -1,76 +1,58 @@
 <?php
-require_once __DIR__ . '/../../../../src/auth/auth_required.php';
 require_once __DIR__ . '/../../../../src/model/sector.php';
 
-// Enforce authentication
-auth_required('../../login_page.php');
+$base_path = '../../';
+$page_title_i18n = "create_question";
 
 $sectors = Sector::find_all();
+
+require_once __DIR__ . '/../../shared/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!-- Main Content -->
+<div class="container">
+    <div class="form-container">
+        <h1 data-i18n="create_question"></h1>
+        <form action="../../../../src/crud_actions/create.php" method="POST">
+            <input type="hidden" name="locale" value="<?= $current_locale ?>">
+            <input type="hidden" name="entity" value="question">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Question</title>
-    <link rel="stylesheet" href="../../../css/admin.css">
-</head>
+            <div class="form-group">
+                <label for="question_sector" data-i18n="question_sector"></label>
+                <select id="question_sector" name="question_sector" required>
+                    <option value="" data-i18n="select_sector"></option>
+                    <?php foreach ($sectors as $sector): ?>
+                        <option value="<?= $sector->get_id() ?>">
+                            <?= htmlspecialchars($sector->get_name()) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-<body>
-    <!-- Navigation -->
-    <nav>
-        <h1>Admin Panel</h1>
-        <ul>
-            <li><a href="../../dashboard.php">Dashboard</a></li>
-            <li><a href="../../evaluation_summary.php">Evaluation Summary</a></li>
-            <li><a href="../sectors/list_sectors.php">Sectors</a></li>
-            <li><a href="../devices/list_devices.php">Devices</a></li>
-            <li><a href="list_questions.php">Questions</a></li>
-            <li><a href="../../../../src/auth/logout.php">Logout</a></li>
-        </ul>
-    </nav>
+            <div class="form-group">
+                <label for="question_text" data-i18n="question_text"></label>
+                <textarea id="question_text" name="question_text" rows="4" required></textarea>
+            </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="form-container">
-            <h1>Create New Question</h1>
-            <form action="../../../../src/crud_actions/create.php" method="POST">
-                <input type="hidden" name="entity" value="question">
+            <div class="form-group">
+                <label for="question_status" data-i18n="device_status"></label>
+                <select id="question_status" name="question_status" required>
+                    <option value="1" data-i18n="active"></option>
+                    <option value="0" data-i18n="inactive"></option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="question_sector">Sector:</label>
-                    <select id="question_sector" name="question_sector" required>
-                        <option value="">-- Select a Sector --</option>
-                        <?php foreach ($sectors as $sector) : ?>
-                            <option value="<?= $sector->get_id() ?>">
-                                <?= htmlspecialchars($sector->get_name()) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="question_text">Question Text:</label>
-                    <textarea id="question_text" name="question_text" rows="4" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="question_status">Status:</label>
-                    <select id="question_status" name="question_status" required>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-submit">Create Question</button>
-                    <a href="list_questions.php" class="btn-cancel">Cancel</a>
-                </div>
-            </form>
-        </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit" data-i18n="create_question_btn"></button>
+                <a href="list_questions.php?<?= $locale_query ?>" class="btn-cancel" data-i18n="cancel"></a>
+            </div>
+        </form>
     </div>
+</div>
+
+<?php
+require_once __DIR__ . '/../../shared/footer.php';
+?>
 </body>
 
 </html>

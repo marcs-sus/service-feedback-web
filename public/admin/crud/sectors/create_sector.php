@@ -1,61 +1,42 @@
 <?php
-require_once __DIR__ . '/../../../../src/auth/auth_required.php';
+$base_path = '../../';
+$page_title_i18n = "create_sector";
 
-// Enforce authentication
-auth_required('../../login_page.php');
+require_once __DIR__ . '/../../shared/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!-- Main Content -->
+<div class="container">
+    <div class="form-container">
+        <h1 data-i18n="create_sector"></h1>
+        <form action="../../../../src/crud_actions/create.php" method="POST">
+            <input type="hidden" name="locale" value="<?= $current_locale ?>">
+            <input type="hidden" name="entity" value="sector">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Sector</title>
-    <link rel="stylesheet" href="../../../css/admin.css">
-</head>
+            <div class="form-group">
+                <label for="sector_name" data-i18n="sector_name"></label>
+                <input type="text" id="sector_name" name="sector_name" required>
+            </div>
 
-<body>
-    <!-- Navigation -->
-    <nav>
-        <h1>Admin Panel</h1>
-        <ul>
-            <li><a href="../../dashboard.php">Dashboard</a></li>
-            <li><a href="../../evaluation_summary.php">Evaluation Summary</a></li>
-            <li><a href="list_sectors.php">Sectors</a></li>
-            <li><a href="../devices/list_devices.php">Devices</a></li>
-            <li><a href="../questions/list_questions.php">Questions</a></li>
-            <li><a href="../../../../src/auth/logout.php">Logout</a></li>
-        </ul>
-    </nav>
+            <div class="form-group">
+                <label for="sector_status" data-i18n="device_status"></label>
+                <select id="sector_status" name="sector_status" required>
+                    <option value="1" data-i18n="active"></option>
+                    <option value="0" data-i18n="inactive"></option>
+                </select>
+            </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="form-container">
-            <h1>Create New Sector</h1>
-            <form action="../../../../src/crud_actions/create.php" method="POST">
-                <input type="hidden" name="entity" value="sector">
-
-                <div class="form-group">
-                    <label for="sector_name">Sector Name:</label>
-                    <input type="text" id="sector_name" name="sector_name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="sector_status">Status:</label>
-                    <select id="sector_status" name="sector_status" required>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-submit">Create Sector</button>
-                    <a href="list_sectors.php" class="btn-cancel">Cancel</a>
-                </div>
-            </form>
-        </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit" data-i18n="create_sector_btn"></button>
+                <a href="list_sectors.php?<?= $locale_query ?>" class="btn-cancel" data-i18n="cancel"></a>
+            </div>
+        </form>
     </div>
+</div>
+
+<?php
+require_once __DIR__ . '/../../shared/footer.php';
+?>
 </body>
 
 </html>

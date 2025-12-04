@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_DEVICES['id'] => $device_id
                 ]);
 
-                header('Location: ../../public/admin/crud/devices/list_devices.php');
+                header('Location: ../../public/admin/crud/devices/list_devices.php?locale=' . $_POST['locale']);
                 break;
             case 'question':
                 // Deletes the question specified by question_id
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_QUESTIONS['id'] => $question_id
                 ]);
 
-                header('Location: ../../public/admin/crud/questions/list_questions.php');
+                header('Location: ../../public/admin/crud/questions/list_questions.php?locale=' . $_POST['locale']);
                 break;
             case 'sector':
                 // Deletes the sector specified by sector_id
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_SECTORS['id'] => $sector_id
                 ]);
 
-                header('Location: ../../public/admin/crud/sectors/list_sectors.php');
+                header('Location: ../../public/admin/crud/sectors/list_sectors.php?locale=' . $_POST['locale']);
                 break;
             default:
                 throw new Exception('Invalid entity specified.');

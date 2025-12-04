@@ -67,3 +67,22 @@ button[type="submit"]:hover {
   margin-top: 1rem;
   color: red;
 }
+
+/* Form Page Link */
+#form-page-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#form-page-link img {
+  width: 30px;
+  height: 30px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#form-page-link img:hover {
+  opacity: 1;
+}

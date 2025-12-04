@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_DEVICES['status'] => $device_status
                 ]);
 
-                header('Location: ../../public/admin/crud/devices/list_devices.php');
+                header('Location: ../../public/admin/crud/devices/list_devices.php?locale=' . $_POST['locale']);
                 break;
             case 'question':
                 // Creates a new question with data from the form
                 $question_sector = $_POST['question_sector'];
                 $question_text = $_POST['question_text'];
-                $question_type = $_POST['question_type'];
+
                 $question_status = $_POST['question_status'];
 
                 $query->insert(TABLE_QUESTIONS, [
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_QUESTIONS['status'] => $question_status
                 ]);
 
-                header('Location: ../../public/admin/crud/questions/list_questions.php');
+                header('Location: ../../public/admin/crud/questions/list_questions.php?locale=' . $_POST['locale']);
                 break;
             case 'sector':
                 // Creates a new sector with data from the form
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     COLUMNS_SECTORS['status'] => $sector_status
                 ]);
 
-                header('Location: ../../public/admin/crud/sectors/list_sectors.php');
+                header('Location: ../../public/admin/crud/sectors/list_sectors.php?locale=' . $_POST['locale']);
                 break;
             default:
                 throw new Exception('Invalid entity specified.');
