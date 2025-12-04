@@ -13,8 +13,14 @@ class Evaluation implements JsonSerializable
     private int $score;
     private string $created_at;
 
-    public function __construct(int $id, Sector $sector, Question $question, Device $device, int $score, string $created_at)
-    {
+    public function __construct(
+        int $id,
+        Sector $sector,
+        Question $question,
+        Device $device,
+        int $score,
+        string $created_at
+    ) {
         $this->id = $id;
         $this->sector = $sector;
         $this->question = $question;
@@ -23,11 +29,13 @@ class Evaluation implements JsonSerializable
         $this->created_at = $created_at;
     }
 
+    // Find a evaluation by id statically
     public static function find_by_id(int $id): ?Evaluation
     {
         $evaluation_query = new Query();
         $evaluations = $evaluation_query->select(TABLE_EVALUATIONS, ['*'], [COLUMNS_EVALUATIONS['id'] => $id]);
 
+        // Instantiate a new evaluation if found
         $evaluation = $evaluations[0] ?? null;
         if ($evaluation) {
             return new Evaluation(
@@ -43,11 +51,13 @@ class Evaluation implements JsonSerializable
         return null;
     }
 
+    // Find all evaluations statically
     public static function find_all(): array
     {
         $evaluation_query = new Query();
         $evaluations = $evaluation_query->select(TABLE_EVALUATIONS);
 
+        // Loop through evaluations and instantiate them
         foreach ($evaluations as $key => $value) {
             $evaluations[$key] = new Evaluation(
                 $value[COLUMNS_EVALUATIONS['id']],
@@ -62,8 +72,10 @@ class Evaluation implements JsonSerializable
         return $evaluations;
     }
 
+    // Find all evaluations by sector statically
     public static function find_all_by_sector(int $sector_id): array
     {
+        // Select all evaluations by sector
         $evaluation_query = new Query();
         $evaluations_result = $evaluation_query->select(
             TABLE_EVALUATIONS,
@@ -71,6 +83,7 @@ class Evaluation implements JsonSerializable
             [COLUMNS_EVALUATIONS['sector_id'] => $sector_id]
         );
 
+        // Loop through evaluations and instantiate them
         $evaluations = [];
         foreach ($evaluations_result as $key => $value) {
             $evaluations[$key] = new Evaluation(
@@ -86,8 +99,10 @@ class Evaluation implements JsonSerializable
         return $evaluations;
     }
 
+    // Calculate the average score of a question statically
     public static function calc_average_score_by_question(int $question_id): float
     {
+        // Search all evaluations by question
         $evaluation_query = new Query();
         $evaluation_result = $evaluation_query->select(
             TABLE_EVALUATIONS,
@@ -95,6 +110,7 @@ class Evaluation implements JsonSerializable
             [COLUMNS_EVALUATIONS['question_id'] => $question_id]
         );
 
+        // Loop through evaluations and calculate the average
         $scores = [];
         foreach ($evaluation_result as $key => $value) {
             $scores[$key] = $value[COLUMNS_EVALUATIONS['score']];
@@ -102,13 +118,16 @@ class Evaluation implements JsonSerializable
 
         if (empty($scores)) return 0;
 
+        // Calculate the average
         $average = array_sum($scores) / count($scores);
 
         return $average;
     }
 
+    // Calculate the average score of a sector statically
     public static function calc_average_score_by_sector(int $sector_id): float
     {
+        // Search all evaluations by sector
         $evaluation_query = new Query();
         $evaluation_result = $evaluation_query->select(
             TABLE_EVALUATIONS,
@@ -116,6 +135,7 @@ class Evaluation implements JsonSerializable
             [COLUMNS_EVALUATIONS['sector_id'] => $sector_id]
         );
 
+        // Loop through evaluations and calculate the average
         $scores = [];
         foreach ($evaluation_result as $key => $value) {
             $scores[$key] = $value[COLUMNS_EVALUATIONS['score']];
@@ -123,41 +143,39 @@ class Evaluation implements JsonSerializable
 
         if (empty($scores)) return 0;
 
+        // Calculate the average
         $average = array_sum($scores) / count($scores);
 
         return $average;
     }
 
+    // Getters
     public function get_id(): int
     {
         return $this->id;
     }
-
     public function get_sector(): Sector
     {
         return $this->sector;
     }
-
     public function get_question(): Question
     {
         return $this->question;
     }
-
     public function get_device(): Device
     {
         return $this->device;
     }
-
     public function get_score(): int
     {
         return $this->score;
     }
-
     public function get_created_at(): string
     {
         return $this->created_at;
     }
 
+    // Implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [

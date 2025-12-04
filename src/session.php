@@ -125,17 +125,14 @@ class Session
     {
         return $this->id;
     }
-
     public function is_active(): bool
     {
         return $this->is_active && session_status() == PHP_SESSION_ACTIVE;
     }
-
     public function get_created_at(): int
     {
         return $this->created_at;
     }
-
     public function get_last_accessed_at(): int
     {
         return $this->last_accessed_at;

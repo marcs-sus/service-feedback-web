@@ -12,6 +12,7 @@ class Auth
         $this->session = new Session();
     }
 
+    // Login the user and return true if successful
     public function login(string $username, string $password): bool
     {
         // Find user by username
@@ -28,16 +29,19 @@ class Auth
         return false;
     }
 
+    // Logout the user
     public function logout(): void
     {
         $this->session->destroy();
     }
 
+    // Check if the user is authenticated
     public function is_authenticated(): bool
     {
         return $this->session->has(COLUMNS_ADMIN_USERS['id']);
     }
 
+    // Get the current authenticated user
     public function get_user(): ?User
     {
         // Search for user if authenticated

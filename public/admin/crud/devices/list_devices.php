@@ -58,8 +58,7 @@ $confirm_delete_message = $locale_manager->get('confirm_delete_device');
         </table>
     <?php else: ?>
         <div class="empty-state">
-            <p><span data-i18n="no_devices"></span> <a href="create_device.php?<?= $locale_query ?>"
-                    data-i18n="create_one_now"></a></p>
+            <p><span data-i18n="no_devices"></span> <a href="create_device.php?<?= $locale_query ?>" data-i18n="create_one_now"></a></p>
         </div>
     <?php endif; ?>
 </div>

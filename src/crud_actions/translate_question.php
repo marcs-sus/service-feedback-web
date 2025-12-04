@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question_id = $_POST['question_id'];
     $locale = $_POST['locale'];
 
+    // Create or update translations for the specified question
     try {
         // Get all supported locales
         require_once __DIR__ . '/../locales.php';

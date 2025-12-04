@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../../../src/model/question_translation.php';
 $base_path = '../../';
 $page_title_i18n = "translate_question";
 
+// Get question and locale
 $question = Question::find_by_id($_GET['id']);
 $requested_locale = $_GET['locale'] ?? null;
 $locale_manager = new LocaleManager($requested_locale);
@@ -21,6 +22,7 @@ foreach ($translations as $trans) {
 require_once __DIR__ . '/../../shared/header.php';
 ?>
 
+<!-- Main Content -->
 <div class="container">
     <div class="form-container">
         <h1 data-i18n="translate_question"></h1>

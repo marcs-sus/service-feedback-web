@@ -54,6 +54,7 @@ require_once __DIR__ . '/shared/header.php';
         <div class="section-header">
             <h2 data-i18n="evaluations"></h2> <span class="count">(<?= count($evaluations) ?>)</span>
         </div>
+
         <?php if (count($evaluations) > 0) : ?>
             <div class="evaluations-grid">
                 <?php foreach ($evaluations as $evaluation) : ?>
@@ -88,6 +89,7 @@ require_once __DIR__ . '/shared/header.php';
         <div class="section-header">
             <h2 data-i18n="feedback"></h2><span class="count">(<?= count($feedbacks) ?>)</span>
         </div>
+
         <?php if (count($feedbacks) > 0) : ?>
             <table>
                 <thead>

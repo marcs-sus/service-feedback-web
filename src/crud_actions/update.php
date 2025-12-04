@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $query = new Query();
 
+    // Update the specified entity
     try {
         switch ($entity) {
             case 'device':

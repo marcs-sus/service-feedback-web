@@ -7,7 +7,7 @@ class Query
 
     public function __construct()
     {
-        $this->pdo = Database::get_instance();
+        $this->pdo = DatabaseConnection::get_instance();
     }
 
     // Select method with optional where and order by clauses

@@ -11,8 +11,14 @@ class QuestionTranslation
     private string $created_at;
     private string $updated_at;
 
-    public function __construct(int $id, int $question_id, string $locale, string $translated_text, string $created_at, string $updated_at)
-    {
+    public function __construct(
+        int $id,
+        int $question_id,
+        string $locale,
+        string $translated_text,
+        string $created_at,
+        string $updated_at
+    ) {
         $this->id = $id;
         $this->question_id = $question_id;
         $this->locale = $locale;
@@ -21,8 +27,10 @@ class QuestionTranslation
         $this->updated_at = $updated_at;
     }
 
+    // Find a translation by question id and locale statically
     public static function find_by_question_and_locale(int $question_id, string $locale): ?QuestionTranslation
     {
+        // Search for the translation with the question id and locale
         $query = new Query();
         $translations = $query->select(
             TABLE_QUESTION_TRANSLATIONS,
@@ -33,6 +41,7 @@ class QuestionTranslation
             ]
         );
 
+        // Instantiate a new translation if found
         $translation = $translations[0] ?? null;
         if ($translation) {
             return new QuestionTranslation(
@@ -48,8 +57,10 @@ class QuestionTranslation
         return null;
     }
 
+    // Find all translations by question id statically
     public static function find_all_by_question(int $question_id): array
     {
+        // Search for all translations with the question id
         $query = new Query();
         $translations = $query->select(
             TABLE_QUESTION_TRANSLATIONS,
@@ -57,6 +68,7 @@ class QuestionTranslation
             [COLUMNS_QUESTION_TRANSLATIONS['question_id'] => $question_id]
         );
 
+        // Loop through translations and instantiate them
         $result = [];
         foreach ($translations as $translation) {
             $result[] = new QuestionTranslation(
@@ -72,6 +84,7 @@ class QuestionTranslation
         return $result;
     }
 
+    // Insert a translation into the database statically
     public static function create(int $question_id, string $locale, string $text): void
     {
         $query = new Query();
@@ -82,6 +95,7 @@ class QuestionTranslation
         ]);
     }
 
+    // Update a translation in the database statically
     public static function update(int $question_id, string $locale, string $text): void
     {
         $query = new Query();
@@ -95,31 +109,27 @@ class QuestionTranslation
         );
     }
 
+    // Getters
     public function get_id(): int
     {
         return $this->id;
     }
-
     public function get_question_id(): int
     {
         return $this->question_id;
     }
-
     public function get_locale(): string
     {
         return $this->locale;
     }
-
     public function get_text(): string
     {
         return $this->translated_text;
     }
-
     public function get_created_at(): string
     {
         return $this->created_at;
     }
-
     public function get_updated_at(): string
     {
         return $this->updated_at;

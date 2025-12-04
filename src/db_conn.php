@@ -1,10 +1,11 @@
 <?php
 require_once __DIR__ . '/../config.php';
 
-class Database
+class DatabaseConnection
 {
     private static ?PDO $instance = null;
 
+    // Get the singleton database connection
     public static function get_instance(): PDO
     {
         if (self::$instance === null) {
@@ -19,7 +20,6 @@ class Database
                     ]
                 );
             } catch (PDOException $ex) {
-                // In a real application, you might want to log this error instead of dying
                 die("Database connection failed: " . $ex->getMessage());
             }
         }

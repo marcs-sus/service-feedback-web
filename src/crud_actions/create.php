@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $query = new Query();
 
+    // Create a new entity
     try {
         switch ($entity) {
             case 'device':

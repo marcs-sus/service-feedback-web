@@ -8,18 +8,23 @@ class Sector implements JsonSerializable
     private string $name;
     private bool $status = true;
 
-    public function __construct(int $id, string $name, bool $status = true)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        bool $status = true
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->status = $status;
     }
 
+    // Find a sector by id statically
     public static function find_by_id(int $id): ?Sector
     {
         $sector_query = new Query();
         $sectors = $sector_query->select(TABLE_SECTORS, ['*'], [COLUMNS_SECTORS['id'] => $id]);
 
+        // Instantiate a new sector if found
         $sector = $sectors[0] ?? null;
         if ($sector) {
             return new Sector(
@@ -32,11 +37,13 @@ class Sector implements JsonSerializable
         return null;
     }
 
+    // Find all sectors statically
     public static function find_all(): array
     {
         $sector_query = new Query();
         $sectors = $sector_query->select(TABLE_SECTORS);
 
+        // Loop through sectors and instantiate them
         foreach ($sectors as $key => $value) {
             $sectors[$key] = new Sector(
                 $value[COLUMNS_SECTORS['id']],
@@ -48,21 +55,21 @@ class Sector implements JsonSerializable
         return $sectors;
     }
 
+    // Getters
     public function get_id(): int
     {
         return $this->id;
     }
-
     public function get_name(): string
     {
         return $this->name;
     }
-
     public function is_active(): bool
     {
         return $this->status;
     }
 
+    // Implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [

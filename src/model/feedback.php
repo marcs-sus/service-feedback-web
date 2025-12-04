@@ -11,8 +11,13 @@ class Feedback
     private string $feedback_text;
     private string $created_at;
 
-    public function __construct(int $id, Sector $sector, Device $device, string $feedback_text, string $created_at)
-    {
+    public function __construct(
+        int $id,
+        Sector $sector,
+        Device $device,
+        string $feedback_text,
+        string $created_at
+    ) {
         $this->id = $id;
         $this->sector = $sector;
         $this->device = $device;
@@ -20,11 +25,13 @@ class Feedback
         $this->created_at = $created_at;
     }
 
+    // Find a feedback by id statically
     public static function find_by_id(int $id): ?Feedback
     {
         $feedback_query = new Query();
         $feedbacks = $feedback_query->select(TABLE_FEEDBACK, ['*'], [COLUMNS_FEEDBACK['id'] => $id]);
 
+        // Instantiate a new feedback if found
         $feedbacks = $feedbacks[0] ?? null;
         if ($feedbacks) {
             return new Feedback(
@@ -39,11 +46,13 @@ class Feedback
         return null;
     }
 
+    // Find all feedbacks statically
     public static function find_all(): array
     {
         $feedback_query = new Query();
         $feedbacks = $feedback_query->select(TABLE_FEEDBACK);
 
+        // Loop through feedbacks and instantiate them
         foreach ($feedbacks as $key => $value) {
             $feedbacks[$key] = new Feedback(
                 $value[COLUMNS_FEEDBACK['id']],
@@ -57,8 +66,10 @@ class Feedback
         return $feedbacks;
     }
 
+    // Find all feedbacks by sector statically
     public static function find_all_by_sector(int $sector_id): array
     {
+        // Select all feedbacks by sector
         $feedback_query = new Query();
         $feedbacks = $feedback_query->select(
             TABLE_FEEDBACK,
@@ -66,6 +77,7 @@ class Feedback
             [COLUMNS_FEEDBACK['sector_id'] => $sector_id]
         );
 
+        // Loop through feedbacks and instantiate them
         foreach ($feedbacks as $key => $value) {
             $feedbacks[$key] = new Feedback(
                 $value[COLUMNS_FEEDBACK['id']],
@@ -79,26 +91,23 @@ class Feedback
         return $feedbacks;
     }
 
+    // Getters
     public function get_id(): int
     {
         return $this->id;
     }
-
     public function get_sector(): Sector
     {
         return $this->sector;
     }
-
     public function get_device(): Device
     {
         return $this->device;
     }
-
     public function get_feedback_text(): string
     {
         return $this->feedback_text;
     }
-
     public function get_created_at(): string
     {
         return $this->created_at;

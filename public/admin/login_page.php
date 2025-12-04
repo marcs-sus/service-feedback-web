@@ -31,9 +31,11 @@ $locales = json_encode($locale_manager->get_supported_locales());
             <?php endforeach; ?>
         </select>
     </div>
+
     <!-- Form container -->
     <div id="form-container">
         <h2 data-i18n="admin_login"></h2>
+
         <!-- Login form -->
         <form action="../../src/auth/login.php" method="POST">
             <input type="hidden" name="locale" value="<?= $current_locale ?>">

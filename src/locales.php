@@ -17,11 +17,13 @@ class LocaleManager
         $this->load_translations();
     }
 
+    // Validate if locale is supported
     private function validate_locale(string $locale): string
     {
         return isset(self::SUPPORTED_LOCALES[$locale]) ? $locale : $this->get_default_locale();
     }
 
+    // Load words/phrases translations from json file
     public function load_translations(): void
     {
         $file = __DIR__ . "/locales/{$this->current_locale}.json";
@@ -31,26 +33,31 @@ class LocaleManager
         }
     }
 
+    // Get translation
     public function get(string $key, string $default = ''): string
     {
         return $this->translations[$key] ?? $default;
     }
 
+    // Get the current active locale
     public function get_current_locale(): string
     {
         return $this->current_locale;
     }
 
+    // Get all supported locales
     public function get_supported_locales(): array
     {
         return self::SUPPORTED_LOCALES;
     }
 
+    // Get all translations for all locales
     public function get_all_translations(): array
     {
         return $this->translations;
     }
 
+    // Get default locale specified in config
     public static function get_default_locale(): string
     {
         return defined('DEFAULT_LOCALE') ? DEFAULT_LOCALE : 'en_US';

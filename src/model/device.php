@@ -8,18 +8,23 @@ class Device implements JsonSerializable
     private string $name;
     private bool $status = true;
 
-    public function __construct(int $id, string $name, bool $status = true)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        bool $status = true
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->status = $status;
     }
 
+    // Find a device by id statically
     public static function find_by_id(int $id): ?Device
     {
         $device_query = new Query();
         $devices = $device_query->select(TABLE_DEVICES, ['*'], [COLUMNS_DEVICES['id'] => $id]);
 
+        // Instantiate a new device if found
         $device = $devices[0] ?? null;
         if ($device) {
             return new Device(
@@ -32,11 +37,13 @@ class Device implements JsonSerializable
         return null;
     }
 
+    // Find all devices statically
     public static function find_all(): array
     {
         $device_query = new Query();
         $devices = $device_query->select(TABLE_DEVICES);
 
+        // Loop through devices and instantiate them
         foreach ($devices as $key => $value) {
             $devices[$key] = new Device(
                 $value[COLUMNS_DEVICES['id']],
@@ -48,21 +55,21 @@ class Device implements JsonSerializable
         return $devices;
     }
 
+    // Getters
     public function get_id(): int
     {
         return $this->id;
     }
-
     public function get_name(): string
     {
         return $this->name;
     }
-
     public function is_active(): bool
     {
         return $this->status;
     }
 
+    // Implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [

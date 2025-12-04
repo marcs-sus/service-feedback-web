@@ -42,7 +42,9 @@ $locales = json_encode($locale_manager->get_supported_locales());
             <?php endforeach; ?>
         </select>
     </div>
-    <div>
+
+    <!-- Thank You Container -->
+    <div class="thank-container">
         <h1 data-i18n="thank_you"></h1>
         <h2 data-i18n="improving_services"></h2>
     </div>
